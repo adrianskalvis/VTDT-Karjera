@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/cfe1cd_7881fabba5e143aa9fa108d68e606379%7Emv2.jpg/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/cfe1cd_7881fabba5e143aa9fa108d68e606379%7Emv2.jpg" type="image/jpeg">
+    <link rel="stylesheet" href="styles.css">
+    <title>VTDT | Karjeras palīgs</title>
+</head>
+<body>
+    <div class="header">
+        <h1>VTDT Karjeras palīgs</h1>
+        <p>Izpēti iespējas, kas var dot Tev virzienu jau šodien!</p>
+    </div>
+
+    <div class="container">
+        <div class="quiz-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+
+            <div class="question active" id="start">
+                <h2>Sāc savu karjeras ceļojumu!</h2>
+                <p>Atbildi uz dažiem jautājumiem. Rezultāts var nebūt galīgi precīzs, bet palīdzēs padomāt par savām iespējām.</p>
+                <div class="start-container">
+                    <div class="option-start" onclick="startQuiz()">Sākt</div>
+                </div>
+            </div>
+                <div id="question-container"></div>
+                <div id="backButton" class="back-button" onclick="goBack()">&#8592; Atpakaļ</div>
+
+            <div id="question-container"></div>
+
+            <div class="result" id="result">
+                <h2>Profesionālais virziens, ko varētu apsvērt:</h2>
+                <div class="profession-card" id="professionCard"></div>
+                   <p><em>Atceries – šis ir tikai ieteikums. Īstais ceļš prasa domāšanu un eksperimentēšanu.</em></p>
+                <button class="restart-btn" onclick="restartQuiz()">Sākt no jauna</button>
+            </div>
+
+            <div class="tree-visualization" id="treeVisualization">
+                <h3>Atbilžu ceļš:</h3>
+                <pre id="treeOutput"></pre>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+
+    <div class="credit-bar">
+        @ Vidzemes tehnoloģiju un dizaina tehnikums
+        <span class="separator">|  <a href="https://www.vtdt.lv/profesijas" target="_blank">skatīt visas profesijas</a></span>
+    </div>
+
+
+</body>
+</html>

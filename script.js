@@ -93,14 +93,13 @@ const professions = {
 
 
 const questionTree = {
-    // 1. RINDA - SAKNE
+
     'root': {
         text: "Vai Tu esi gatavs jauniem izaicinājumiem?",
         yes: 'q2_yes',
         no: 'q2_no'
     },
 
-    // 2. RINDA
     'q2_no': {
         text: "Tev patīk jaunākās tehnoloģijas?",
         yes: 'q3_no_yes',
@@ -112,7 +111,6 @@ const questionTree = {
         no: 'q3_yes_no'
     },
 
-    // 3. RINDA
     'q3_no_no': {
         text: "Tu gribētu dzīvot kopmītnēs?",
         yes: 'q4_no_no_yes',
@@ -134,7 +132,6 @@ const questionTree = {
         no: 'q4_yes_yes_no'
     },
 
-    // 4. RINDA
     'q4_no_no_no': {
         text: "Tev patīk sadarboties ar cilvēkiem?",
         yes: 'q5_no_no_no_yes',
@@ -142,12 +139,12 @@ const questionTree = {
     },
     'q4_no_no_yes': {
         text: "Tev patīk gatavot ēst (sev un citiem)?",
-        yes: 'q5_no_no_yes_yes',
+        yes: 'q5_no_no_yes_no',
         no: 'q5_no_no_yes_no'
     },
     'q4_no_yes_no': {
         text: "Tev patīk strādāt ar rokām (veidot, kaut ko izgatavot)?",
-        yes: 'q5_no_yes_no_yes',
+        yes: 'q5_no_yes_no_no',
         no: 'q5_no_yes_no_no'
     },
     'q4_no_yes_yes': {
@@ -157,7 +154,7 @@ const questionTree = {
     },
     'q4_yes_no_no': {
         text: "Tev patīk izdomāt jaunas idejas?",
-        yes: 'q5_yes_no_no_yes',
+        yes: 'q5_yes_no_no_no',
         no: 'q5_yes_no_no_no'
     },
     'q4_yes_no_yes': {
@@ -176,7 +173,6 @@ const questionTree = {
         no: 'q5_yes_yes_yes_no'
     },
 
-    // 5. RINDA
     'q5_no_no_no_no': {
         text: "Tu vari palīdzēt nepazīstamiem cilvēkiem?",
         yes: 'q6_no_no_no_no_yes',
@@ -184,12 +180,12 @@ const questionTree = {
     },
     'q5_no_no_no_yes': {
         text: "Vai Tu viegli kontaktējies ar citiem?",
-        yes: 'q6_no_no_no_yes_yes',
+        yes: 'q6_no_no_no_yes_no',
         no: 'q6_no_no_no_yes_no'
     },
     'q5_no_no_yes_no': {
         text: "Vai Tu viegli kontaktējies ar citiem?",
-        yes: 'q6_no_no_yes_no_yes',
+        yes: 'q6_no_no_yes_no_no',
         no: 'q6_no_no_yes_no_no'
     },
     'q5_no_yes_no_no': {
@@ -243,7 +239,6 @@ const questionTree = {
         no: 'q6_yes_yes_yes_yes_no'
     },
 
-    // 6. RINDA
     'q6_no_no_no_no_no': {
         text: "Tev patīk darboties ar lietām, instrumentiem, mašīnām, tehniku?",
         yes: 'q7_no_no_no_no_no_yes',
@@ -365,7 +360,6 @@ const questionTree = {
         no: 'apdares_darbu_tehnikis'
     },
 
-    // 7. RINDA - LABOTIE MEZGLI
     'q7_labot_lietas': {
         text: "Tev patīk labot lietas?",
         yes: 'q8_mehaniskas_ierices',
@@ -498,7 +492,6 @@ const questionTree = {
         no: 'apdares_darbu_tehnikis'
     },
 
-    // 8. RINDA
     'q8_mehaniskas_ierices': {
         text: "Vai Tev patīk restaurēt, mopēdus vai mašīnas?",
         yes: 'autovirsbuvju_remontatsledznieks',
@@ -551,7 +544,6 @@ const questionTree = {
         no: 'augkopibas_tehnikis'
     },
 
-    // 9. RINDA
     'q9_no_no_no_no_no_yes_yes_no': {
         text: "Tev patīk detalizēti rasēt, precīzi ko nomērīt?",
         yes: 'q10_no_no_no_no_no_yes_yes_no_yes',
@@ -578,7 +570,6 @@ const questionTree = {
         no: 'augkopibas_tehnikis'
     },
 
-    // 10. RINDA
     'q10_no_no_no_no_no_yes_yes_no_yes': {
         text: "Tev patīk nodarboties ar koku?",
         yes: 'q11_no_no_no_no_no_yes_yes_no_yes_yes',
@@ -605,7 +596,6 @@ const questionTree = {
         no: 'q11_no_no_no_no_yes_yes_no_no_yes_no'
     },
 
-    // 11. RINDA
     'q11_no_no_no_no_no_yes_yes_no_yes_yes': {
         text: "Tev patīk rīkoties ar dzelžiem?",
         yes: 'eku_buvtehnikis',
@@ -658,23 +648,18 @@ const questionTree = {
     }
 };
 
-// Mainīgie testa vadīšanai
+
 let currentQuestionId = "root";
 let answeredQuestions = 0;
 let answerPath = [];
-const maxQuestions = 25; // Palielināts, lai ietilptu visi iespējamie maršruti
+const maxQuestions = 25;
 
-// Funkcijas
 function startQuiz() {
     currentQuestionId = "root";
     answeredQuestions = 0;
     answerPath = [];
     showQuestion(currentQuestionId);
     updateTreeVisualization();
-    /*
-    document.getElementById("treeVisualization").style.display = "block";
-    document.getElementById("treeOutput").style.display = "block";
-    */
 }
 
 function showQuestion(questionId) {
@@ -694,7 +679,6 @@ function showQuestion(questionId) {
         return;
     }
 
-    // Tīrām container saturu un pievienojam jautājumu + opcijas
     container.innerHTML = `
         <div class="question active">
             <h2>${question.text}</h2>
@@ -705,7 +689,6 @@ function showQuestion(questionId) {
         </div>
     `;
 
-    // Rādām vai slēpam back pogu
     const backButton = document.getElementById("backButton");
     backButton.style.display = currentQuestionId === "root" ? "none" : "block";
 
@@ -717,39 +700,34 @@ function showQuestion(questionId) {
 function answerQuestion(questionId, answer) {
     const question = questionTree[questionId];
     answeredQuestions++;
-    answerPath.push({question: questionId, answer: answer});
-    
+    answerPath.push({ question: questionId, answer: answer });
+
     const nextQuestionId = question[answer];
-    
-    // Pārbauda, vai nākamais solis ir profesija
+
     if (professions[nextQuestionId]) {
         showResult(nextQuestionId);
     } else if (answeredQuestions >= maxQuestions) {
-        // Ja sasniegts maksimālais jautājumu skaits
         const profession = findProfessionByBacktracking();
         showResult(profession);
     } else {
         currentQuestionId = nextQuestionId;
         showQuestion(nextQuestionId);
     }
-    
+
     updateTreeVisualization();
 }
 
 function findProfessionByBacktracking() {
-    // Meklējam pēdējo zināmo jautājumu un mēģinām atrast tuvāko profesiju
     for (let i = answerPath.length - 1; i >= 0; i--) {
         const path = answerPath[i];
         const question = questionTree[path.question];
-        
+
         if (question) {
-            // Pārbaudām abus iespējamos turpinājumus
             if (professions[question.yes]) return question.yes;
             if (professions[question.no]) return question.no;
         }
     }
-    
-    // Ja neko nevar atrast, atgriežam noklusējuma profesiju
+
     return 'programmesanas_tehnikis';
 }
 
@@ -766,12 +744,6 @@ function showResult(professionKey) {
     `;
 
     document.getElementById('progressBar').style.width = '100%';
-    /*
-    document.getElementById('treeVisualization').style.display = 'block';
-    document.getElementById('treeOutput').style.display = 'block';
-    */
-
-    // Paslēpt back pogu rezultātu lapā
     document.getElementById('backButton').style.display = 'none';
 }
 
@@ -784,7 +756,7 @@ function updateProgress() {
 function updateTreeVisualization() {
     let tree = "Root (Vai Tu esi gatavs jauniem izaicinājumem?)\n";
     let depth = 1;
-    
+
     for (const answer of answerPath) {
         const indent = "  ".repeat(depth);
         const arrow = answer.answer === 'yes' ? '→' : '←';
@@ -792,21 +764,18 @@ function updateTreeVisualization() {
         tree += `${indent}${arrow} ${questionText.substring(0, 40)}${questionText.length > 40 ? '...' : ''}\n`;
         depth++;
     }
-    
+
     document.getElementById('treeOutput').textContent = tree;
 }
 
 function goBack() {
     if (answerPath.length === 0) {
-        restartQuiz(); // atpakaļ uz startu
+        restartQuiz();
         return;
     }
 
-    // Noņem pēdējo atbildi
     answerPath.pop();
     answeredQuestions--;
-
-    // Iepriekšējā jautājuma ID
     currentQuestionId = answerPath.length === 0 ? "root" : answerPath[answerPath.length - 1].question;
 
     showQuestion(currentQuestionId);

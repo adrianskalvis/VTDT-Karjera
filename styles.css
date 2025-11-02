@@ -5,41 +5,45 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: linear-gradient(135deg, #f3f0fb 0%, #e0d7f8 100%);
-    min-height: 100vh;
     color: #333;
+    padding-bottom: 72px;
+    max-width: 100%;
 }
 
 /* Header */
 .header {
-    background: linear-gradient(135deg, #3f1b5a 100%, #552887 0%);
+    background: #292561;
     color: white;
     box-shadow: 0 8px 32px rgba(94, 42, 132, 0.3);
-    padding: 3rem 0;
+    padding: 2rem;
     text-align: center;
     position: relative;
     overflow: hidden;
+}
+
+:root {
+    --header-height: 72px;
 }
 
 .header::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="white" opacity="0.1"><polygon points="0,0 1000,0 1000,100"/></svg>');
-    background-size: cover;
+   
 }
 
 .header h1 {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-size: 1.5rem;
 }
 
 .header p {
-    font-size: 1.2rem;
-    opacity: 0.95;
+    font-size: 1rem;
+    opacity: 0.9;
     position: relative;
-    z-index: 1;
     margin-top: 0.5rem;
+    font-weight: 100;
 }
 
 .header .subtitle {
@@ -52,11 +56,11 @@ body {
 
 @media (max-width: 768px) {
     .header {
-        padding: 2rem 1rem;
+        padding: 1rem 1rem;
     }
 
     .header h1 {
-        font-size: 2rem; /* mazāks uz telefoniem */
+        font-size: 1rem; /* mazāks uz telefoniem */
     }
 
     .header p {
@@ -66,7 +70,7 @@ body {
 
 @media (max-width: 480px) {
     .header h1 {
-        font-size: 1.5rem; /* ļoti maziem ekrāniem */
+        font-size: 0.5rem; /* ļoti maziem ekrāniem */
     }
 
     .header p {
@@ -113,7 +117,7 @@ body {
 }
 
 .question h2 {
-    color: #5E2A84;
+    color: #292561;
     font-size: 1.6rem;
     margin-bottom: 1.5rem;
     text-align: center;
@@ -124,7 +128,7 @@ body {
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
     text-align: center;
-    color: #444;
+    color: #292561;
 }
 
 /* Options */
@@ -162,7 +166,7 @@ body {
 }
 
 .option:hover {
-    border-color: #5E2A84;
+    border-color: #292561;
     background: linear-gradient(135deg,#EDE0F9 0%,#F2E6FC 100%);
     box-shadow: 0 10px 25px rgba(94,42,132,0.25);
     transform: translateY(-3px);
@@ -198,17 +202,16 @@ body {
 }
 
 .result h2 {
-    color: #5E2A84;
+    color: #292561;
     font-size: 2rem;
     margin-bottom: 1rem;
 }
 
 .profession-card {
-    background: linear-gradient(135deg,#5E2A84,#7B3AAE);
+    background: linear-gradient(135deg,#292561, #5E2A84);
     box-shadow: 0 15px 40px rgba(94,42,132,0.3);
     color: white;
     padding: 2.5rem;
-    border-radius: 20px;
     margin: 1.5rem 0;
     position: relative;
     overflow: hidden;
@@ -241,11 +244,11 @@ body {
 
 /* Restart button */
 .restart-btn {
-    background: linear-gradient(135deg,#5E2A84,#7B3AAE);
+    background: linear-gradient(135deg,#292561, #7B3AAE);
     color: white;
     border: none;
     padding: 1.2rem 2.5rem;
-    border-radius: 50px;
+    border-radius: 15px;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
@@ -263,12 +266,12 @@ body {
 .footer {
     text-align: center;
     padding: 2rem;
-    color: #5E2A84;
+    color: #292561;
     font-weight: 500;
 }
 
 .footer a {
-    color: #5E2A84;
+    color: #292561;
     text-decoration: none;
     font-weight: 600;
 }
@@ -304,15 +307,15 @@ body {
 .option-start {
     background: repeating-linear-gradient(
         135deg,
-        #6c2fcf, /* tumšāks variants no #7c3aed */
-        #6c2fcf 20px,
-        #7a4ed1, /* tumšāks variants no #8b5cf6 */
-        #7a4ed1 40px
+        #292561, /* tumšāks variants no #7c3aed */
+        #292561 20px,
+        #4b1f7a, /* tumšāks variants no #8b5cf6 */
+        #4b1f7a 40px
     );
     color: white;
     font-size: 1.3rem;
     font-weight: 600;
-    border: 2px solid #4b1f7a; /* tumšāks variants no #5E2A84 */
+    border: 2px solid #4b1f7a;
     border-radius: 15px; 
     padding: 0.8rem 3rem;
     text-align: center;
@@ -322,7 +325,7 @@ body {
     transition: all 0.3s ease;
     box-shadow: 0 6px 18px rgba(108, 46, 207, 0.3); /* nedaudz tumšāks ēnojums */
     min-width: 200px;
-    width: 95%;
+    width: 50%;
 }
 
 
@@ -388,7 +391,7 @@ body {
     margin: 1rem 0 1rem 0; /* centrs horizontāli, neliels augšējais margiņš */
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
-    color: #7c3aed;
+    color: #292561;
     background-color: rgba(124, 58, 237, 0.1);
     border-radius: 8px;
     cursor: pointer;
@@ -401,14 +404,21 @@ body {
 }
 
 .credit-bar {
-    background: #3f1b5a;
+    background: #292561;
     color: white;
     text-align: center;
-    padding: 1rem 0;
-    border-radius: 12px;
+    padding: 0 1rem; /* horizontal padding, height controlled below */
     font-size: 0.95rem;
-    margin-top: 2rem;
-    box-shadow: 0 6px 15px rgba(94, 42, 132, 0.2);
+    position: fixed;      /* keep at bottom on all devices */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 56px;         /* visible stripe height — adjust if needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;        /* on top of other content */
+    box-shadow: 0 -6px 18px rgba(0,0,0,0.08);
 }
 
 .credit-bar a {
@@ -440,7 +450,7 @@ body {
     text-align: center;
     font-size: 1.4rem;
     margin-bottom: 1rem;
-    color: #6d28d9;
+    color: #292561;
     font-weight: 600;
 }
 
@@ -470,7 +480,7 @@ body {
     content: '';
     position: absolute;
     top: 0;
-    border-color: #5E2A84;
+    border-color: #292561;
     border-top: 2px solid #7c3aed;
     width: 50%;
     height: 20px;
@@ -500,7 +510,7 @@ body {
 
 /* Kastiņas (jaut./atb.) */
 .tree li div {
-    border: 2px solid #5E2A84;
+    border: 2px solid #292561;
     padding: 10px 20px;
     border-radius: 12px;
     background: white;

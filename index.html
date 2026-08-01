@@ -1,56 +1,99 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="lv">
-<head>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" sizes="192x192" href="https://static.wixstatic.com/media/cfe1cd_7881fabba5e143aa9fa108d68e606379%7Emv2.jpg/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/cfe1cd_7881fabba5e143aa9fa108d68e606379%7Emv2.jpg" type="image/jpeg">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="VTDT profesiju izvēles palīgs ar 18 situāciju jautājumiem un personalizētu Top 3 rezultātu."
+    >
+    <link
+      rel="icon"
+      sizes="192x192"
+      href="https://static.wixstatic.com/media/cfe1cd_7881fabba5e143aa9fa108d68e606379%7Emv2.jpg/v1/fill/w_192%2Ch_192%2Clg_1%2Cusm_0.66_1.00_0.01/cfe1cd_7881fabba5e143aa9fa108d68e606379%7Emv2.jpg"
+      type="image/jpeg"
+    >
     <link rel="stylesheet" href="styles.css">
-    <title>VTDT | Karjeras palīgs</title>
-</head>
-<body>
-    <div class="header">
-        <h1>VTDT KARJERAS PALĪGS</h1>
-        <p>Izpēti iespējas, kas var dot Tev virzienu jau šodien!</p>
-    </div>
+    <title>VTDT virzienu kompass</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#question-container">Pāriet uz testu</a>
 
-    <div class="container">
-        <div class="quiz-container">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressBar"></div>
-            </div>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="VTDT virzienu kompasa sākums">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-star">✦</span>
+        </span>
+        <span>
+          <span class="brand-kicker">VTDT</span>
+          <span class="brand-name">Virzienu kompass</span>
+        </span>
+      </a>
+      <a
+        class="header-link"
+        href="https://www.vtdt.lv/profesijas"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Visas profesijas
+        <span aria-hidden="true">↗</span>
+      </a>
+    </header>
 
-            <div class="question active" id="start">
-                <h2>Sāc savu karjeras ceļojumu!</h2>
-                <p>Atbildi uz dažiem jautājumiem. Rezultāts var nebūt galīgi precīzs, bet palīdzēs padomāt par savām iespējām.</p>
-                <div class="start-container">
-                    <div class="option-start" onclick="startQuiz()">Sākt</div>
-                </div>
-            </div>
-                <div id="question-container"></div>
-                <div id="backButton" class="back-button" onclick="goBack()">&#8592; Atpakaļ</div>
-
-            <div id="question-container"></div>
-
-            <div class="result" id="result">
-                <h2>Profesionālais virziens, ko varētu apsvērt:</h2>
-                <div class="profession-card" id="professionCard"></div>
-                   <p><em>Atceries – šis ir tikai ieteikums. Īstais ceļš prasa domāšanu un eksperimentēšanu.</em></p>
-                <button class="restart-btn" onclick="restartQuiz()">Sākt no jauna</button>
-            </div>
-
-            <div class="tree-visualization" id="treeVisualization">
-                <h3>Atbilžu ceļš:</h3>
-                <pre id="treeOutput"></pre>
-            </div>
+    <main id="main-content" class="page-shell">
+      <aside class="guide-card" aria-labelledby="guide-title">
+        <p class="eyebrow">Profesiju izvēles palīgs</p>
+        <h1 id="guide-title">Atrodi virzienu, ko vērts izmēģināt</h1>
+        <p class="guide-copy">
+          18 situācijas saliek kopā Tavas intereses, iecienītos uzdevumus un darba vidi.
+          Viena atbilde neko neizslēdz.
+        </p>
+        <div class="guide-orbit" aria-hidden="true">
+          <span class="orbit-ring orbit-ring-one"></span>
+          <span class="orbit-ring orbit-ring-two"></span>
+          <span class="orbit-core">✦</span>
+          <span class="orbit-dot orbit-dot-one"></span>
+          <span class="orbit-dot orbit-dot-two"></span>
+          <span class="orbit-dot orbit-dot-three"></span>
         </div>
-    </div>
-    <script src="script.js"></script>
+        <ul class="guide-points" aria-label="Testa principi">
+          <li><span aria-hidden="true">18</span> pamata jautājumi</li>
+          <li><span aria-hidden="true">3</span> ieteiktie virzieni</li>
+          <li><span aria-hidden="true">0</span> pareizo vai nepareizo atbilžu</li>
+        </ul>
+      </aside>
 
-    <div class="credit-bar">
-        @ Vidzemes tehnoloģiju un dizaina tehnikums 
-        <span class="separator"> |  <a href="https://www.vtdt.lv/profesijas" target="_blank">skatīt visas profesijas</a></span>
-    </div>
+      <section class="assessment-card" aria-label="Profesiju izvēles tests">
+        <div id="progress-region" class="progress-region" hidden>
+          <div class="progress-meta">
+            <span id="progress-label">Atbildēti 0 no 18</span>
+            <span id="question-label">Pamata jautājums 1 no 18</span>
+          </div>
+          <div
+            id="progress-track"
+            class="progress-track"
+            role="progressbar"
+            aria-label="Testa progress"
+            aria-valuemin="0"
+            aria-valuemax="18"
+            aria-valuenow="0"
+          >
+            <span id="progress-fill" class="progress-fill"></span>
+          </div>
+        </div>
 
+        <div id="question-container" tabindex="-1"></div>
+        <p id="live-region" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+      </section>
+    </main>
 
-</body>
+    <footer class="site-footer">
+      <p>© Vidzemes Tehnoloģiju un dizaina tehnikums</p>
+      <p>
+        Karjeras izpētes ieteikums, nevis profesionāla psiholoģiska diagnoze.
+      </p>
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
 </html>

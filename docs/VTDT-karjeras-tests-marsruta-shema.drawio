@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-09-15T00:00:00.000Z" agent="VTDT karjeras tests" version="24.7.17" type="device">
+  <diagram id="vtdt-simple-flow" name="Vienkāršs maršruts">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="start" value="Sākums&#xa;atver testu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#292561;fontColor=#ffffff;strokeColor=#1f1b50;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="55" y="225" width="180" height="82" as="geometry"/></mxCell>
+        <mxCell id="mode" value="Režīma izvēle&#xa;ātrais vai padziļinātais" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4d7;fontColor=#292561;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="305" y="225" width="200" height="82" as="geometry"/></mxCell>
+        <mxCell id="quick" value="Ātrais tests&#xa;10 pamata jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f2effc;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="575" y="125" width="225" height="82" as="geometry"/></mxCell>
+        <mxCell id="deep" value="Padziļinātais tests&#xa;18 pamata jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7f0fb;fontColor=#292561;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="575" y="325" width="225" height="82" as="geometry"/></mxCell>
+        <mxCell id="profile" value="22 dimensiju profils" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f2effc;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="870" y="225" width="225" height="82" as="geometry"/></mxCell>
+        <mxCell id="compare" value="13 profesiju profili&#xa;un salīdzinājums" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7f0fb;fontColor=#292561;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1165" y="225" width="225" height="82" as="geometry"/></mxCell>
+        <mxCell id="decision" value="Vajag precizēt?&#xa;tuvs rezultāts vai maz datu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff4d7;fontColor=#292561;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1165" y="440" width="225" height="82" as="geometry"/></mxCell>
+        <mxCell id="clarifier" value="Precizējošs jautājums&#xa;un pārrēķins" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7f7ec;fontColor=#292561;strokeColor=#79bd8b;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="1165" y="600" width="225" height="86" as="geometry"/></mxCell>
+        <mxCell id="result" value="Rezultāts&#xa;Top 3 vai kopīga 1. vieta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7f7ec;fontColor=#292561;strokeColor=#79bd8b;fontStyle=1;" vertex="1" parent="1"><mxGeometry x="870" y="600" width="260" height="86" as="geometry"/></mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="start" target="mode"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" value="Ātrais" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="mode" target="quick"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" value="Padziļinātais" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="mode" target="deep"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="quick" target="profile"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="deep" target="profile"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="profile" target="compare"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="compare" target="decision"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" value="Nē" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="decision" target="result"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" value="Jā" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="decision" target="clarifier"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" value="pārrēķina profilu" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="clarifier" target="profile"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

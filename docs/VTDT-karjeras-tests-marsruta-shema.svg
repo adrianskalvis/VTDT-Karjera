@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#6f68a8"/>
+    </marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #292561; }
+      .title { font-size: 32px; font-weight: 700; }
+      .subtitle { font-size: 18px; fill: #625e74; }
+      .label { font-size: 20px; font-weight: 700; }
+      .small { font-size: 16px; fill: #625e74; }
+      .edge-label { font-size: 16px; font-weight: 700; fill: #625e74; }
+      .box { stroke-width: 3; }
+      .primary { fill: #292561; stroke: #1f1b50; }
+      .primary-text { fill: #ffffff; }
+      .lilac { fill: #f2effc; stroke: #8f7cf3; }
+      .blue { fill: #e7f0fb; stroke: #6c8ebf; }
+      .green { fill: #e7f7ec; stroke: #79bd8b; }
+      .yellow { fill: #fff4d7; stroke: #d6b656; }
+      .line { fill: none; stroke: #6f68a8; stroke-width: 3; marker-end: url(#arrow); }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="#f7f5fc"/>
+  <text x="55" y="55" class="title">VTDT karjeras testa maršruts</text>
+  <text x="55" y="88" class="subtitle">No pirmās atbildes līdz profesiju virzienam</text>
+
+  <rect x="55" y="225" width="180" height="82" rx="16" class="box primary"/>
+  <text x="145" y="258" text-anchor="middle" class="label primary-text">Sākums</text>
+  <text x="145" y="284" text-anchor="middle" class="small primary-text">atver testu</text>
+
+  <rect x="305" y="225" width="200" height="82" rx="16" class="box yellow"/>
+  <text x="405" y="258" text-anchor="middle" class="label">Režīma izvēle</text>
+  <text x="405" y="284" text-anchor="middle" class="small">ātrais vai padziļinātais</text>
+
+  <rect x="575" y="125" width="225" height="82" rx="16" class="box lilac"/>
+  <text x="687" y="158" text-anchor="middle" class="label">Ātrais tests</text>
+  <text x="687" y="184" text-anchor="middle" class="small">10 pamata jautājumi</text>
+
+  <rect x="575" y="325" width="225" height="82" rx="16" class="box blue"/>
+  <text x="687" y="358" text-anchor="middle" class="label">Padziļinātais tests</text>
+  <text x="687" y="384" text-anchor="middle" class="small">18 pamata jautājumi</text>
+
+  <rect x="870" y="225" width="225" height="82" rx="16" class="box lilac"/>
+  <text x="982" y="258" text-anchor="middle" class="label">22 dimensiju</text>
+  <text x="982" y="284" text-anchor="middle" class="small">lietotāja profils</text>
+
+  <rect x="1165" y="225" width="225" height="82" rx="16" class="box blue"/>
+  <text x="1277" y="258" text-anchor="middle" class="label">13 profesiju</text>
+  <text x="1277" y="284" text-anchor="middle" class="small">profili un salīdzinājums</text>
+
+  <rect x="1165" y="440" width="225" height="82" rx="16" class="box yellow"/>
+  <text x="1277" y="473" text-anchor="middle" class="label">Vajag precizēt?</text>
+  <text x="1277" y="499" text-anchor="middle" class="small">tuvs rezultāts vai maz datu</text>
+
+  <rect x="870" y="600" width="260" height="86" rx="16" class="box green"/>
+  <text x="1000" y="634" text-anchor="middle" class="label">Rezultāts</text>
+  <text x="1000" y="661" text-anchor="middle" class="small">Top 3 vai kopīga 1. vieta</text>
+
+  <rect x="1165" y="600" width="225" height="86" rx="16" class="box green"/>
+  <text x="1277" y="634" text-anchor="middle" class="label">Precizējošs</text>
+  <text x="1277" y="661" text-anchor="middle" class="small">jautājums un pārrēķins</text>
+
+  <path d="M235 266 H305" class="line"/>
+  <path d="M505 266 C535 266 535 166 575 166" class="line"/>
+  <path d="M505 266 C535 266 535 366 575 366" class="line"/>
+  <path d="M800 166 C835 166 835 266 870 266" class="line"/>
+  <path d="M800 366 C835 366 835 266 870 266" class="line"/>
+  <path d="M1095 266 H1165" class="line"/>
+  <path d="M1277 307 V440" class="line"/>
+  <path d="M1165 481 H1040 C1000 481 1000 560 1000 600" class="line"/>
+  <path d="M1277 522 V600" class="line"/>
+  <path d="M1165 643 H1128" class="line"/>
+  <path d="M1165 643 C1100 760 930 790 900 690 C875 610 900 520 900 307" class="line"/>
+
+  <text x="1115" y="245" class="edge-label">salīdzina</text>
+  <text x="1300" y="380" class="edge-label">jā</text>
+  <text x="1050" y="545" class="edge-label">nē</text>
+  <text x="1090" y="625" class="edge-label">atpakaļ uz profilu</text>
+
+  <line x1="55" y1="780" x2="1540" y2="780" stroke="#ded7ee" stroke-width="2"/>
+  <text x="55" y="825" class="label">Aiz testa</text>
+  <text x="55" y="854" class="small">Atbildes veido profilu, profils tiek salīdzināts ar profesijām, un tikai vajadzības gadījumā tiek uzdots papildu jautājums.</text>
+  <text x="55" y="878" class="small">Gala svaru sadalījums: 25% intereses, 55% uzdevumi un profesionālās intereses, 20% darba vide un stils.</text>
+</svg>

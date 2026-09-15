@@ -1,568 +1,508 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mxfile host="app.diagrams.net" modified="2026-08-01T00:00:00.000Z" agent="VTDT diagram generator" version="24.7.17" type="device">
+<mxfile host="app.diagrams.net" modified="2026-08-01T00:00:00.000Z" agent="VTDT generator" version="24.7.17" type="device">
 
-  <diagram id="flow" name="1. Aplikācijas plūsma">
-    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <diagram id="user-flow" name="Lietotāja ceļš">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="720" math="0" shadow="0">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
-        
-  <mxCell id="flow_start" value="Sākums" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#292561;fontColor=#ffffff;strokeColor=#1f1b50;fontStyle=1;shadow=1;" vertex="1" parent="1">
-    <mxGeometry x="35" y="160" width="170" height="58" as="geometry"/>
+        <mxCell id="f_start" value="Sākums" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#292561;fontColor=#ffffff;strokeColor=#1f1b50;fontStyle=1;shadow=1;" vertex="1" parent="1">
+    <mxGeometry x="40" y="180" width="180" height="58" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_questions" value="18 pamata jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="245" y="160" width="170" height="58" as="geometry"/>
+  <mxCell id="f_mode" value="Režīma izvēle" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#5e4510;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="260" y="180" width="180" height="58" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_profile" value="Normalizēts dimensiju profils" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="455" y="160" width="190" height="58" as="geometry"/>
+  <mxCell id="f_quick" value="Ātrais · 10 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="490" y="80" width="180" height="58" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_compare" value="Profesiju profilu salīdzināšana" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="685" y="160" width="200" height="58" as="geometry"/>
+  <mxCell id="f_deep" value="Padziļinātais · 18 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="490" y="280" width="180" height="58" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_close" value="Top 2 starpība &lt; 0,25 punkta un ≥ 9 saturīgas atbildes?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#5e4510;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="920" y="145" width="190" height="90" as="geometry"/>
+  <mxCell id="f_profile" value="22 dimensiju profils" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f4ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="730" y="180" width="180" height="58" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_tie" value="1–2 precizējoši jautājumi (svars 0,5)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="710" y="320" width="200" height="58" as="geometry"/>
+  <mxCell id="f_compare" value="13 profesiju salīdzinājums" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f4ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="960" y="180" width="195" height="58" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_result" value="Top 3 + skaidrojums + sakritības indekss" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;fontStyle=1;shadow=1;" vertex="1" parent="1">
-    <mxGeometry x="940" y="320" width="190" height="58" as="geometry"/>
+  <mxCell id="f_need" value="Rezultāti tuvi vai trūkst pārklājuma?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#5e4510;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="1200" y="155" width="210" height="105" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_note" value="Viena atbilde nepiešķir profesiju. Neitrālam profilam nav noklusējuma līdera." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontColor=#555555;strokeColor=#b9b3d5;dashed=1;" vertex="1" parent="1">
-    <mxGeometry x="385" y="485" width="400" height="72" as="geometry"/>
+  <mxCell id="f_select" value="Labākais neatbildētais precizējums no 16" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f4ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="1180" y="360" width="230" height="58" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="flow_start" target="flow_questions">
+  <mxCell id="f_limit" value="Sasniegts režīma limits?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#5e4510;strokeColor=#d6b656;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="900" y="360" width="200" height="58" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="f_result" value="Top 3 vai kopīga 1. vieta" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;fontStyle=1;shadow=1;" vertex="1" parent="1">
+    <mxGeometry x="1190" y="525" width="220" height="58" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="f_note" value="Ātrais: līdz 3 precizējumiem · Padziļinātais: līdz 2 · viena atbilde profesiju nepiešķir" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontColor=#555555;strokeColor=#b9b3d5;dashed=1;" vertex="1" parent="1">
+    <mxGeometry x="455" y="525" width="560" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="fe1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_start" target="f_mode">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="flow_questions" target="flow_profile">
+  <mxCell id="fe2" value="Ātrais" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_mode" target="f_quick">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="flow_profile" target="flow_compare">
+  <mxCell id="fe3" value="Padziļinātais" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_mode" target="f_deep">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="flow_compare" target="flow_close">
+  <mxCell id="fe4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_quick" target="f_profile">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_e5" value="Jā" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;strokeColor=#a05b11;" edge="1" parent="1" source="flow_close" target="flow_tie">
+  <mxCell id="fe5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_deep" target="f_profile">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_e6" value="Nē" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;strokeColor=#27816b;" edge="1" parent="1" source="flow_close" target="flow_result">
+  <mxCell id="fe6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_profile" target="f_compare">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="flow_e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="flow_tie" target="flow_result">
+  <mxCell id="fe7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_compare" target="f_need">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="fe8" value="Nē" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_need" target="f_result">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="fe9" value="Jā" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_need" target="f_select">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="fe10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_select" target="f_limit">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="fe11" value="Vēl drīkst" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_limit" target="f_profile">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="fe12" value="Limits" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="f_limit" target="f_result">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
 
-  <diagram id="model" name="2. Jautājumi, dimensijas un profesijas">
-    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1169" math="0" shadow="0">
+  <diagram id="scoring-flow" name="Punktu aprēķins">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1650" pageHeight="680" math="0" shadow="0">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
-        
-  <mxCell id="model_q_interest" value="Jautājumi par interešu veidu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#292561;fontColor=#ffffff;strokeColor=#1f1b50;fontStyle=1;shadow=1;" vertex="1" parent="1">
-    <mxGeometry x="25" y="80" width="185" height="58" as="geometry"/>
+        <mxCell id="s_answer" value="Atbilde
+Jā +2 · Drīzāk jā +1 · Drīzāk nē -1 · Nē -2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#292561;fontColor=#ffffff;strokeColor=#1f1b50;fontStyle=1;shadow=1;" vertex="1" parent="1">
+    <mxGeometry x="35" y="185" width="260" height="80" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_q_tasks" value="Jautājumi par uzdevumiem" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#292561;fontColor=#ffffff;strokeColor=#1f1b50;fontStyle=1;shadow=1;" vertex="1" parent="1">
-    <mxGeometry x="25" y="175" width="185" height="58" as="geometry"/>
+  <mxCell id="s_vector" value="Koeficients × jautājuma dimensiju vektors" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f4ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="350" y="185" width="235" height="80" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_q_environment" value="Jautājumi par vidi un darba stilu" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#292561;fontColor=#ffffff;strokeColor=#1f1b50;fontStyle=1;shadow=1;" vertex="1" parent="1">
-    <mxGeometry x="25" y="270" width="185" height="58" as="geometry"/>
+  <mxCell id="s_profile" value="Virziens + pierādījuma uzticamība katrā dimensijā" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f4ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="650" y="185" width="245" height="80" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_d_riasec" value="RIASEC dimensijas (6) · 25%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="270" y="80" width="205" height="58" as="geometry"/>
+  <mxCell id="s_riasec" value="RIASEC · 6 dimensijas · 25%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;fontColor=#3f2850;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="965" y="55" width="235" height="58" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_d_tasks" value="VTDT uzdevumu dimensijas (11) · 55%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="270" y="175" width="205" height="58" as="geometry"/>
+  <mxCell id="s_tasks" value="Uzdevumi/intereses · 11 dimensijas · 55%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="965" y="185" width="235" height="58" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_d_environment" value="VTDT vides/stila dimensijas (5) · 20%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="270" y="270" width="205" height="58" as="geometry"/>
+  <mxCell id="s_environment" value="Vide/stils · 5 dimensijas · 20%" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="965" y="315" width="235" height="58" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_qe1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="model_q_interest" target="model_d_riasec">
+  <mxCell id="s_formula" value="100 × (0,25 × RIASEC + 0,55 × uzdevumi + 0,20 × vide)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f4ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="1270" y="165" width="270" height="100" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="s_catalog" value="13 aktuālo profesiju profili" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
+    <mxGeometry x="650" y="385" width="245" height="58" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="s_rank" value="Neapaļotu rādītāju salīdzinājums" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f4ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="1270" y="330" width="270" height="58" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="s_top" value="Atbilstības rādītājs + Top 3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;fontStyle=1;shadow=1;" vertex="1" parent="1">
+    <mxGeometry x="1270" y="460" width="270" height="58" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="s_note" value="Pretrunīgi signāli samazina uzticamību. Viena atbilde profesiju nepiešķir. Rezultāts nav varbūtība." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontColor=#555555;strokeColor=#b9b3d5;dashed=1;" vertex="1" parent="1">
+    <mxGeometry x="350" y="500" width="545" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="se1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_answer" target="s_vector">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_qe2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="model_q_tasks" target="model_d_tasks">
+  <mxCell id="se2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_vector" target="s_profile">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_qe3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="model_q_environment" target="model_d_environment">
+  <mxCell id="se3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_profile" target="s_riasec">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="legend_active" value="active" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="430" width="110" height="38" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="legend_legacy" value="legacy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#6c5216;strokeColor=#d6b656;dashed=1;" vertex="1" parent="1">
-    <mxGeometry x="150" y="430" width="110" height="38" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="legend_unverified" value="unverified" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;" vertex="1" parent="1">
-    <mxGeometry x="275" y="430" width="110" height="38" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="sector_autotransports" value="Autotransports" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="545" y="35" width="200" height="58" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_0_0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_riasec" target="sector_autotransports">
+  <mxCell id="se4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_profile" target="s_tasks">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_ds_0_1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_tasks" target="sector_autotransports">
+  <mxCell id="se5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_profile" target="s_environment">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_ds_0_2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_environment" target="sector_autotransports">
+  <mxCell id="se6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_riasec" target="s_formula">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="sector_buvnieciba" value="Būvniecība" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="545" y="130" width="200" height="58" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_1_0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_riasec" target="sector_buvnieciba">
+  <mxCell id="se7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_tasks" target="s_formula">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_ds_1_1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_tasks" target="sector_buvnieciba">
+  <mxCell id="se8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_environment" target="s_formula">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_ds_1_2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_environment" target="sector_buvnieciba">
+  <mxCell id="se9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_catalog" target="s_rank">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="sector_dizains" value="Dizains" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="545" y="225" width="200" height="58" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_2_0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_riasec" target="sector_dizains">
+  <mxCell id="se10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_formula" target="s_rank">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="model_ds_2_1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_tasks" target="sector_dizains">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_2_2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_environment" target="sector_dizains">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="sector_energetika" value="Enerģētika" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="545" y="320" width="200" height="58" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_3_0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_riasec" target="sector_energetika">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_3_1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_tasks" target="sector_energetika">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_3_2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_environment" target="sector_energetika">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="sector_informacijas_un_komunikacijas_tehnologijas" value="Informācijas un komunikācijas tehnoloģijas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="545" y="415" width="200" height="58" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_4_0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_riasec" target="sector_informacijas_un_komunikacijas_tehnologijas">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_4_1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_tasks" target="sector_informacijas_un_komunikacijas_tehnologijas">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_4_2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_environment" target="sector_informacijas_un_komunikacijas_tehnologijas">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="sector_kokapstrade" value="Kokapstrāde" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="545" y="510" width="200" height="58" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_5_0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_riasec" target="sector_kokapstrade">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_5_1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_tasks" target="sector_kokapstrade">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_5_2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_environment" target="sector_kokapstrade">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="sector_lauksaimnieciba" value="Lauksaimniecība" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="545" y="605" width="200" height="58" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_6_0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_riasec" target="sector_lauksaimnieciba">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_6_1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_tasks" target="sector_lauksaimnieciba">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_ds_6_2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=45;" edge="1" parent="1" source="model_d_environment" target="sector_lauksaimnieciba">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_automehanikis" value="Automehāniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="20" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_automehanikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_autotransports" target="profession_automehanikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_autovirsbuvju_remonta_tehnikis" value="Autovirsbūvju remonta tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="87" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_autovirsbuvju_remonta_tehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_autotransports" target="profession_autovirsbuvju_remonta_tehnikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_apdares_darbu_tehnikis" value="Apdares darbu tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="154" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_apdares_darbu_tehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_buvnieciba" target="profession_apdares_darbu_tehnikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_eku_buvtehnikis" value="Ēku būvtehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="221" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_eku_buvtehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_buvnieciba" target="profession_eku_buvtehnikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_namdaris" value="Namdaris [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="288" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_namdaris" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_buvnieciba" target="profession_namdaris">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_arhitekturas_tehnikis" value="Arhitektūras tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="355" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_arhitekturas_tehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_buvnieciba" target="profession_arhitekturas_tehnikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_inzeniersistemu_buvtehnikis" value="Inženiersistēmu būvtehniķis [legacy]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#6c5216;strokeColor=#d6b656;dashed=1;" vertex="1" parent="1">
-    <mxGeometry x="825" y="422" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_inzeniersistemu_buvtehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_buvnieciba" target="profession_inzeniersistemu_buvtehnikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_apgerbu_dizainera_asistents" value="Apģērbu dizainera asistents [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="489" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_apgerbu_dizainera_asistents" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_dizains" target="profession_apgerbu_dizainera_asistents">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_elektrotehnikis" value="Elektrotehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="556" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_elektrotehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_energetika" target="profession_elektrotehnikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_atjaunojamas_energetikas_tehnikis" value="Atjaunojamās enerģētikas tehniķis [legacy]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#6c5216;strokeColor=#d6b656;dashed=1;" vertex="1" parent="1">
-    <mxGeometry x="825" y="623" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_atjaunojamas_energetikas_tehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_energetika" target="profession_atjaunojamas_energetikas_tehnikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_datorsistemu_tehnikis" value="Datorsistēmu tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="690" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_datorsistemu_tehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_informacijas_un_komunikacijas_tehnologijas" target="profession_datorsistemu_tehnikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_programmesanas_tehnikis" value="Programmēšanas tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="757" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_programmesanas_tehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_informacijas_un_komunikacijas_tehnologijas" target="profession_programmesanas_tehnikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_mebelu_galdnieks" value="Mēbeļu galdnieks [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="824" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_mebelu_galdnieks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_kokapstrade" target="profession_mebelu_galdnieks">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_lauksaimniecibas_mehanizacijas_tehnikis" value="Lauksaimniecības mehanizācijas tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="891" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_lauksaimniecibas_mehanizacijas_tehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_lauksaimnieciba" target="profession_lauksaimniecibas_mehanizacijas_tehnikis">
-    <mxGeometry relative="1" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="profession_augkopibas_tehnikis" value="Augkopības tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="825" y="958" width="285" height="48" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="model_sp_augkopibas_tehnikis" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="sector_lauksaimnieciba" target="profession_augkopibas_tehnikis">
+  <mxCell id="se11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="s_rank" target="s_top">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
 
-  <diagram id="tie-breakers" name="3. Adaptīvie pāri">
-    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1169" math="0" shadow="0">
+  <diagram id="question-coverage" name="Jautājumu pārklājums">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
-        
-  <mxCell id="tie_legend_active" value="active" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="25" width="110" height="38" as="geometry"/>
+        <mxCell id="c_legend_quick" value="Ātrā testa 10 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="25" width="190" height="42" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_legend_legacy" value="legacy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#6c5216;strokeColor=#d6b656;dashed=1;" vertex="1" parent="1">
-    <mxGeometry x="150" y="25" width="110" height="38" as="geometry"/>
+  <mxCell id="c_legend_deep" value="Papildu 8 padziļinātie" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="240" y="25" width="190" height="42" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_note" value="9 īpašie pāri + datu kolekcijas vispārīgs fallback citiem Top 2. Atbildes maina tikai dimensijas." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontColor=#555555;strokeColor=#b9b3d5;dashed=1;" vertex="1" parent="1">
-    <mxGeometry x="300" y="20" width="560" height="48" as="geometry"/>
+  <mxCell id="c_riasec" value="RIASEC
+Praktiska darbošanās · Izpēte un analīze · Radošums un forma · Sadarbība un atbalsts · Iniciatīva un koordinēšana · Kārtība un process" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;fontColor=#3f2850;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="790" y="90" width="520" height="90" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_left_tb_programming_hardware" value="Programmēšanas tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="95" width="285" height="55" as="geometry"/>
+  <mxCell id="c_tasks" value="Uzdevumi un intereses
+Programmēšana · Datori un tīkli · Mehānika un diagnostika · Metāls un virsbūves · Elektrība un enerģija · Telpa un rasēšana · Būvniecības process · Kokapstrāde · Tekstils un dizains · Augi un daba · Lauksaimniecības tehnika" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="790" y="380" width="520" height="150" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_center_tb_programming_hardware" value="tb_programming_hardware
-2 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="390" y="95" width="265" height="55" as="geometry"/>
+  <mxCell id="c_environment" value="Darba vide un stils
+Precizitāte un pacietība · Fiziska darbošanās · Darbs ārā · Komandas darbs · Patstāvīga koncentrēšanās" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="790" y="730" width="520" height="100" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_right_tb_programming_hardware" value="Datorsistēmu tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="735" y="95" width="300" height="55" as="geometry"/>
+  <mxCell id="c_q01_fault" value="1. Ja kaut kas nedarbojas, vai Tu gribi noskaidrot, kas tieši vainīgs?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="90" width="340" height="70" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_e_left_0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_left_tb_programming_hardware" target="tie_center_tb_programming_hardware">
+  <mxCell id="ce_q01_fault_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q01_fault" target="c_riasec">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_e_right_0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_center_tb_programming_hardware" target="tie_right_tb_programming_hardware">
+  <mxCell id="ce_q01_fault_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q01_fault" target="c_tasks">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_left_tb_mechanics_bodywork" value="Automehāniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="195" width="285" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_center_tb_mechanics_bodywork" value="tb_mechanics_bodywork
-2 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="390" y="195" width="265" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_right_tb_mechanics_bodywork" value="Autovirsbūvju remonta tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="735" y="195" width="300" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_e_left_1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_left_tb_mechanics_bodywork" target="tie_center_tb_mechanics_bodywork">
+  <mxCell id="ce_q01_fault_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q01_fault" target="c_environment">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_e_right_1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_center_tb_mechanics_bodywork" target="tie_right_tb_mechanics_bodywork">
+  <mxCell id="c_q02_tangible" value="2. Vai Tev patīk lietām piešķirt savu stilu un izskatu?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="184" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q02_tangible_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q02_tangible" target="c_riasec">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_left_tb_architecture_building" value="Arhitektūras tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="295" width="285" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_center_tb_architecture_building" value="tb_architecture_building
-2 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="390" y="295" width="265" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_right_tb_architecture_building" value="Ēku būvtehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="735" y="295" width="300" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_e_left_2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_left_tb_architecture_building" target="tie_center_tb_architecture_building">
+  <mxCell id="ce_q02_tangible_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q02_tangible" target="c_tasks">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_e_right_2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_center_tb_architecture_building" target="tie_right_tb_architecture_building">
+  <mxCell id="ce_q02_tangible_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q02_tangible" target="c_environment">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_left_tb_carpentry_furniture" value="Namdaris [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="395" width="285" height="55" as="geometry"/>
+  <mxCell id="c_q03_detail" value="3. Ja uzdevums apnīk, vai Tu tāpat cīnies līdz galam?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="278" width="340" height="70" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_center_tb_carpentry_furniture" value="tb_carpentry_furniture
-2 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="390" y="395" width="265" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_right_tb_carpentry_furniture" value="Mēbeļu galdnieks [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="735" y="395" width="300" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_e_left_3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_left_tb_carpentry_furniture" target="tie_center_tb_carpentry_furniture">
+  <mxCell id="ce_q03_detail_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q03_detail" target="c_environment">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_e_right_3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_center_tb_carpentry_furniture" target="tie_right_tb_carpentry_furniture">
+  <mxCell id="ce_q03_detail_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q03_detail" target="c_riasec">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_left_tb_plants_machinery" value="Augkopības tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="495" width="285" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_center_tb_plants_machinery" value="tb_plants_machinery
-2 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="390" y="495" width="265" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_right_tb_plants_machinery" value="Lauksaimniecības mehanizācijas tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="735" y="495" width="300" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_e_left_4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_left_tb_plants_machinery" target="tie_center_tb_plants_machinery">
+  <mxCell id="ce_q03_detail_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q03_detail" target="c_tasks">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_e_right_4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_center_tb_plants_machinery" target="tie_right_tb_plants_machinery">
+  <mxCell id="c_q04_spatial" value="4. Vai Tu spēj iejusties cita cilvēka lomā un sajūtās?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="372" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q04_spatial_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q04_spatial" target="c_riasec">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_left_tb_electrical_renewable" value="Elektrotehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="595" width="285" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_center_tb_electrical_renewable" value="tb_electrical_renewable
-2 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="390" y="595" width="265" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_right_tb_electrical_renewable" value="Atjaunojamās enerģētikas tehniķis [legacy]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#6c5216;strokeColor=#d6b656;dashed=1;" vertex="1" parent="1">
-    <mxGeometry x="735" y="595" width="300" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_e_left_5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_left_tb_electrical_renewable" target="tie_center_tb_electrical_renewable">
+  <mxCell id="ce_q04_spatial_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q04_spatial" target="c_environment">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_e_right_5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_center_tb_electrical_renewable" target="tie_right_tb_electrical_renewable">
+  <mxCell id="ce_q04_spatial_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q04_spatial" target="c_tasks">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_left_tb_electrical_building_systems" value="Elektrotehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="695" width="285" height="55" as="geometry"/>
+  <mxCell id="c_q05_movement" value="5. Vai Tu labprāt daļu dienas pavadītu, strādājot ārā?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="466" width="340" height="70" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_center_tb_electrical_building_systems" value="tb_electrical_building_systems
-2 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="390" y="695" width="265" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_right_tb_electrical_building_systems" value="Inženiersistēmu būvtehniķis [legacy]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#6c5216;strokeColor=#d6b656;dashed=1;" vertex="1" parent="1">
-    <mxGeometry x="735" y="695" width="300" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_e_left_6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_left_tb_electrical_building_systems" target="tie_center_tb_electrical_building_systems">
+  <mxCell id="ce_q05_movement_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q05_movement" target="c_environment">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_e_right_6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_center_tb_electrical_building_systems" target="tie_right_tb_electrical_building_systems">
+  <mxCell id="ce_q05_movement_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q05_movement" target="c_riasec">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_left_tb_finishing_building" value="Apdares darbu tehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="795" width="285" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_center_tb_finishing_building" value="tb_finishing_building
-2 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="390" y="795" width="265" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_right_tb_finishing_building" value="Ēku būvtehniķis [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="735" y="795" width="300" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_e_left_7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_left_tb_finishing_building" target="tie_center_tb_finishing_building">
+  <mxCell id="ce_q05_movement_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q05_movement" target="c_tasks">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_e_right_7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_center_tb_finishing_building" target="tie_right_tb_finishing_building">
+  <mxCell id="c_q06_change" value="6. Vai Tu viegli pielāgojies, ja plāns pēkšņi mainās?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="560" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q06_change_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q06_change" target="c_riasec">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_left_tb_textile_furniture" value="Apģērbu dizainera asistents [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="25" y="895" width="285" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_center_tb_textile_furniture" value="tb_textile_furniture
-2 jautājumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
-    <mxGeometry x="390" y="895" width="265" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_right_tb_textile_furniture" value="Mēbeļu galdnieks [active]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;" vertex="1" parent="1">
-    <mxGeometry x="735" y="895" width="300" height="55" as="geometry"/>
-  </mxCell>
-
-  <mxCell id="tie_e_left_8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_left_tb_textile_furniture" target="tie_center_tb_textile_furniture">
+  <mxCell id="ce_q06_change_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q06_change" target="c_environment">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
 
-  <mxCell id="tie_e_right_8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;" edge="1" parent="1" source="tie_center_tb_textile_furniture" target="tie_right_tb_textile_furniture">
+  <mxCell id="ce_q06_change_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q06_change" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q07_sequence" value="7. Vai Tev patīk darīt visu noteiktā secībā no sākuma?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="654" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q07_sequence_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q07_sequence" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q07_sequence_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q07_sequence" target="c_environment">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q07_sequence_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q07_sequence" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q08_systems" value="8. Vai Tev patīk izjaukt lietas un saprast, kā tās darbojas?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="748" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q08_systems_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q08_systems" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q08_systems_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q08_systems" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q09_ideas" value="9. Vai Tev patīk vispirms uzzīmēt vai izplānot savu ideju?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="842" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q09_ideas_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q09_ideas" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q09_ideas_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q09_ideas" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q10_team" value="10. Vai Tu labprāt pavadītu vairākas stundas pie datora?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="30" y="936" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q10_team_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q10_team" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q10_team_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q10_team" target="c_environment">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q10_team_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q10_team" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q11_motion" value="11. Vai Tev patīk saprast, kā darbojas dažādi mehānismi?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="405" y="90" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q11_motion_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q11_motion" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q11_motion_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q11_motion" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q11_motion_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q11_motion" target="c_environment">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q12_focus" value="12. Vai Tu vari patstāvīgi pabeigt uzdevumu bez biežas palīdzības?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="405" y="184" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q12_focus_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q12_focus" target="c_environment">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q12_focus_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q12_focus" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q12_focus_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q12_focus" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q13_surface" value="13. Vai Tu ātri pamani, ja kaut kas ir šķībs vai nelīdzens?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="405" y="278" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q13_surface_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q13_surface" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q13_surface_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q13_surface" target="c_environment">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q13_surface_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q13_surface" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q14_measure" value="14. Vai pirms lēmuma Tu pārbaudi faktus, nevis tikai mini?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="405" y="372" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q14_measure_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q14_measure" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q14_measure_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q14_measure" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q14_measure_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q14_measure" target="c_environment">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q15_environment" value="15. Vai Tev patiktu rūpēties par augiem un redzēt, kā tie aug?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="405" y="466" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q15_environment_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q15_environment" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q15_environment_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q15_environment" target="c_environment">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q15_environment_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q15_environment" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q16_material" value="16. Vai Tev patīk pārveidot materiālus pēc savas ieceres?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="405" y="560" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q16_material_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q16_material" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q16_material_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q16_material" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q16_material_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q16_material" target="c_environment">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q17_safety" value="17. Vai pirms lietošanas Tu pārbaudi, vai viss darbojas droši?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="405" y="654" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q17_safety_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q17_safety" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q17_safety_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q17_safety" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q17_safety_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q17_safety" target="c_environment">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="c_q18_planning" value="18. Vai pirms darba sākšanas Tu izdomā, ko darīsi vispirms?" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+    <mxGeometry x="405" y="748" width="340" height="70" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q18_planning_riasec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q18_planning" target="c_riasec">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q18_planning_tasks" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q18_planning" target="c_tasks">
+    <mxGeometry relative="1" as="geometry"/>
+  </mxCell>
+
+  <mxCell id="ce_q18_planning_environment" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6f68a8;endArrow=block;endFill=1;opacity=42;" edge="1" parent="1" source="c_q18_planning" target="c_environment">
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>
       </root>

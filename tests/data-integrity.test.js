@@ -1,330 +1,218 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
 import test from "node:test";
 
+import { dimensionIds, dimensions } from "../data/dimensions.js";
+import { professions } from "../data/professions.js";
 import {
-  DIMENSION_GROUPS,
-  dimensionIds,
-  dimensions,
-} from "../data/dimensions.js";
-import {
-  professionStatusConfig,
-  professions,
-} from "../data/professions.js";
-import {
-  findTieBreakerForPair,
-  genericTieBreakerQuestions,
+  ANSWER_SCALE,
+  ASSESSMENT_MODES,
+  QUICK_QUESTION_IDS,
   questions,
   tieBreakers,
 } from "../data/questions.js";
-import { evaluateAssessment, shouldAskTieBreaker } from "../js/scoring.js";
-import { personas } from "./personas.js";
 
-const professionIds = new Set(professions.map(({ id }) => id));
+const EXPECTED_TITLES = [
+  "Apģērbu dizainera asistents",
+  "Lauksaimniecības mehanizācijas tehniķis",
+  "Augkopības tehniķis",
+  "Mēbeļu galdnieks",
+  "Apdares darbu tehniķis",
+  "Ēku būvtehniķis",
+  "Namdaris",
+  "Arhitektūras tehniķis",
+  "Datorsistēmu tehniķis",
+  "Programmēšanas tehniķis",
+  "Automehāniķis",
+  "Autovirsbūvju remonta tehniķis",
+  "Elektrotehniķis",
+];
 
-test("katalogā saglabātas visas 15 profesijas ar 13 active un 2 legacy", () => {
-  assert.equal(professions.length, 15);
-  assert.equal(professionStatusConfig.active.length, 13);
-  assert.equal(professionStatusConfig.legacy.length, 2);
-  assert.equal(professionStatusConfig.unverified.length, 0);
-  assert.deepEqual(
-    new Set(professionStatusConfig.active),
-    new Set(
-      professions.filter(({ status }) => status === "active").map(({ id }) => id),
-    ),
-  );
-});
-
-test("ir tieši 18 pamata jautājumi pareizā numerācijā", () => {
-  assert.equal(questions.length, 18);
-  assert.deepEqual(
-    questions.map(({ number }) => number),
-    Array.from({ length: 18 }, (_, index) => index + 1),
-  );
-  assert.equal(new Set(questions.map(({ id }) => id)).size, 18);
-  assert.ok(
-    questions.filter(({ type }) => type === "scenario" || type === "forced-choice")
-      .length >= 12,
-  );
-});
-
-test("katram jautājumam ir 4 vai 5 saturiskas atbildes un viena neitrāla", () => {
-  for (const question of questions) {
-    const neutralOptions = question.options.filter(({ isNeutral }) => isNeutral);
-    const substantiveOptions = question.options.filter(({ isNeutral }) => !isNeutral);
-    assert.ok(
-      substantiveOptions.length === 4 || substantiveOptions.length === 5,
-      `${question.id}: ${substantiveOptions.length} saturiskas atbildes`,
-    );
-    assert.equal(neutralOptions.length, 1, question.id);
-    assert.deepEqual(neutralOptions[0].effects, {}, question.id);
-    assert.ok(question.options.every(({ label }) => label.trim().length > 2));
-    assert.equal(
-      new Set(question.options.map(({ id }) => id)).size,
-      question.options.length,
-      question.id,
-    );
-  }
-});
-
-test("visi efekti izmanto eksistējošas dimensijas un nepārsniedz vienas atbildes limitu", () => {
-  const allQuestions = [
-    ...questions,
-    ...tieBreakers.flatMap(({ questions: clarifiers }) => clarifiers),
-    ...genericTieBreakerQuestions,
-  ];
-  for (const question of allQuestions) {
-    for (const option of question.options) {
-      for (const [dimensionId, effect] of Object.entries(option.effects)) {
-        assert.ok(dimensions[dimensionId], `${question.id}/${option.id}: ${dimensionId}`);
-        assert.ok(Number.isFinite(effect));
-        assert.ok(effect >= -2 && effect <= 2, `${question.id}/${option.id}`);
-      }
-    }
-  }
-});
-
-test("katru dimensiju mēra vairāk nekā viens pamata jautājums", () => {
-  for (const dimensionId of dimensionIds) {
-    const measuringQuestions = questions.filter((question) =>
-      question.options.some((option) => option.effects[dimensionId] !== undefined),
-    );
-    assert.ok(
-      measuringQuestions.length > 1,
-      `${dimensionId} mēra tikai ${measuringQuestions.length} jautājums`,
-    );
-  }
-});
-
-test("grupu svari ir 25/55/20 un summā veido 1", () => {
-  assert.equal(DIMENSION_GROUPS.riasec.weight, 0.25);
-  assert.equal(DIMENSION_GROUPS.tasks.weight, 0.55);
-  assert.equal(DIMENSION_GROUPS.environment.weight, 0.2);
-  assert.equal(
-    Object.values(DIMENSION_GROUPS).reduce((sum, group) => sum + group.weight, 0),
-    1,
-  );
-});
-
-test("katrai profesijai ir pilns profils, statuss, saturs un oficiāls HTTPS URL", () => {
-  for (const profession of professions) {
-    assert.ok(["active", "legacy", "unverified"].includes(profession.status));
-    assert.deepEqual(new Set(Object.keys(profession.profile)), new Set(dimensionIds));
-    assert.ok(
-      Object.values(profession.profile).every(
-        (value) => Number.isFinite(value) && value >= 0 && value <= 1,
-      ),
-      profession.id,
-    );
-    assert.ok(profession.title.length > 3);
-    assert.ok(profession.sector.length > 3);
-    assert.ok(profession.description.length > 40);
-    assert.equal(profession.tasks.length, 3);
-    assert.equal(profession.aspects.length, 3);
-    assert.ok(profession.workEnvironment.length > 30);
-    assert.ok(profession.challenge.length > 30);
-    assert.ok(profession.learningTask.length > 30);
-    assert.equal(new URL(profession.officialUrl).protocol, "https:");
-    assert.equal(new URL(profession.sourceUrl).hostname, "www.vtdt.lv");
-    assert.match(profession.lastVerified, /^\d{4}-\d{2}-\d{2}$/);
-    assert.doesNotMatch(
-      profession.description,
-      /vienmēr būs pieprasīt|viena no pieprasītāk|nākotnes profesija/i,
-    );
-  }
-});
-
-test("neviena atbilde nepiešķir profesiju tieši", () => {
-  const answerObjects = [
-    ...questions,
-    ...tieBreakers.flatMap(({ questions: clarifiers }) => clarifiers),
-    ...genericTieBreakerQuestions,
-  ].flatMap(({ options }) => options);
-  const forbiddenKeys = /profession|result|career|default/i;
-
-  for (const option of answerObjects) {
-    assert.equal(Object.keys(option).some((key) => forbiddenKeys.test(key)), false);
-    const serialized = JSON.stringify(option.effects);
-    for (const professionId of professionIds) {
-      assert.equal(serialized.includes(professionId), false);
-    }
-  }
-});
-
-test("visi obligātie precizējošo jautājumu pāri ir datos un secība nav svarīga", () => {
-  const requiredPairs = [
-    ["programmesanas_tehnikis", "datorsistemu_tehnikis"],
-    ["automehanikis", "autovirsbuvju_remonta_tehnikis"],
-    ["arhitekturas_tehnikis", "eku_buvtehnikis"],
-    ["namdaris", "mebelu_galdnieks"],
-    ["augkopibas_tehnikis", "lauksaimniecibas_mehanizacijas_tehnikis"],
-    ["elektrotehnikis", "atjaunojamas_energetikas_tehnikis"],
-    ["elektrotehnikis", "inzeniersistemu_buvtehnikis"],
-    ["apdares_darbu_tehnikis", "eku_buvtehnikis"],
-    ["apgerbu_dizainera_asistents", "mebelu_galdnieks"],
-  ];
-  const pairKey = (pair) => [...pair].sort().join("|");
-  const available = new Set(tieBreakers.map(({ pair }) => pairKey(pair)));
-
-  for (const pair of requiredPairs) assert.ok(available.has(pairKey(pair)), pairKey(pair));
-  for (const collection of tieBreakers) {
-    assert.equal(collection.questions.length, 2);
-    assert.ok(collection.pair.every((id) => professionIds.has(id)));
-  }
-
-  const generic = findTieBreakerForPair(
-    "programmesanas_tehnikis",
-    "augkopibas_tehnikis",
-  );
-  assert.equal(generic.generic, true);
-  assert.equal(generic.questions.length, 2);
-});
-
-test("katrai vēsturiskajai profesijai ir loģiska testa persona", async (t) => {
-  assert.equal(personas.length, professions.length);
-  assert.deepEqual(
-    new Set(personas.map(({ targetProfessionId }) => targetProfessionId)),
-    professionIds,
+const normalizeWords = (text) =>
+  new Set(
+    text
+      .toLocaleLowerCase("lv")
+      .replaceAll(/[^\p{L}\p{N}\s]/gu, " ")
+      .split(/\s+/)
+      .filter((word) => word.length > 2 && !["vai", "tev", "tevi", "patīk", "nekā"].includes(word)),
   );
 
-  for (const persona of personas) {
-    await t.test(persona.id, () => {
-      assert.equal(persona.answers.length, questions.length);
-      assert.ok(persona.rationale.length > 30);
-      const target = professions.find(({ id }) => id === persona.targetProfessionId);
-      const evaluation = evaluateAssessment({
-        answers: persona.answers,
-        includedStatuses: ["active", "legacy"],
-      });
-      const rank =
-        evaluation.ranked.findIndex(
-          ({ profession }) => profession.id === persona.targetProfessionId,
-        ) + 1;
-      assert.ok(rank > 0 && rank <= 3, `${persona.id}: mērķis ir #${rank}`);
-      if (target.status === "active") {
-        assert.equal(rank, 1, `${persona.id}: aktīvās profesijas rangs #${rank}`);
-      }
-    });
-  }
-});
-
-const mulberry32 = (seed) => () => {
-  let value = (seed += 0x6d2b79f5);
-  value = Math.imul(value ^ (value >>> 15), value | 1);
-  value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
-  return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+const jaccard = (first, second) => {
+  const intersection = [...first].filter((token) => second.has(token)).length;
+  return intersection / new Set([...first, ...second]).size;
 };
 
-test("30 000 nejaušu profilu simulācijā aktīvās profesijas ir praktiski sasniedzamas", (t) => {
-  const iterations = 30_000;
-  const random = mulberry32(20260801);
-  const topOneShares = Object.fromEntries(
-    professionStatusConfig.active.map((id) => [id, 0]),
+test("runtime katalogā ir tieši 13 aktuālās VTDT profesijas", () => {
+  assert.equal(professions.length, 13);
+  assert.deepEqual(
+    professions.map(({ title }) => title),
+    EXPECTED_TITLES,
   );
-  const topThreeCounts = Object.fromEntries(
-    professionStatusConfig.active.map((id) => [id, 0]),
-  );
-  let tieBreakerEligibleCount = 0;
-
-  for (let iteration = 0; iteration < iterations; iteration += 1) {
-    const answers = questions.map((question) => ({
-      questionId: question.id,
-      optionId: question.options[Math.floor(random() * question.options.length)].id,
-    }));
-    const evaluation = evaluateAssessment({ answers });
-    if (shouldAskTieBreaker(evaluation)) tieBreakerEligibleCount += 1;
-    const bestScore = evaluation.ranked[0].score;
-    const leaders = evaluation.ranked.filter(
-      ({ score }) => Math.abs(score - bestScore) < 1e-10,
-    );
-    for (const { profession } of leaders) {
-      topOneShares[profession.id] += 1 / leaders.length;
-    }
-    for (const { profession } of evaluation.topThree) {
-      topThreeCounts[profession.id] += 1;
-    }
-  }
-
-  const topOneRates = Object.fromEntries(
-    Object.entries(topOneShares).map(([id, count]) => [id, count / iterations]),
-  );
-  const topThreeRates = Object.fromEntries(
-    Object.entries(topThreeCounts).map(([id, count]) => [id, count / iterations]),
-  );
-  t.diagnostic(
-    `Top 1: ${JSON.stringify(topOneRates)}; Top 3: ${JSON.stringify(topThreeRates)}; precizējums: ${tieBreakerEligibleCount / iterations}`,
-  );
-
-  for (const id of professionStatusConfig.active) {
-    assert.ok(topOneRates[id] >= 0.001, `${id}: Top 1 ${topOneRates[id]}`);
-    assert.ok(topThreeRates[id] >= 0.005, `${id}: Top 3 ${topThreeRates[id]}`);
-  }
-  assert.ok(
-    Math.max(...Object.values(topOneRates)) < 0.3,
-    `dominējošais Top 1 īpatsvars ${Math.max(...Object.values(topOneRates))}`,
-  );
-  assert.ok(
-    tieBreakerEligibleCount / iterations >= 0.1 &&
-      tieBreakerEligibleCount / iterations <= 0.5,
-    `precizējumu īpatsvars ${tieBreakerEligibleCount / iterations}`,
-  );
-});
-
-test("HTML karkass ir semantisks un tajā nav veco inline vadīklu", async () => {
-  const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
-  const app = await readFile(new URL("../js/app.js", import.meta.url), "utf8");
-  const scoring = await readFile(new URL("../js/scoring.js", import.meta.url), "utf8");
-
-  assert.equal((html.match(/id="question-container"/g) ?? []).length, 1);
-  assert.doesNotMatch(html, /\sonclick\s*=/i);
-  assert.doesNotMatch(app, /\sonclick\s*=/i);
-  assert.match(html, /<script type="module" src="js\/app\.js"><\/script>/);
-  assert.doesNotMatch(html, /script\.js/);
-  assert.doesNotMatch(scoring, /findProfessionByBacktracking|DEFAULT_PROFESSION/);
-  assert.match(app, /evaluation\.resultMode === "broad"/);
-  assert.doesNotMatch(app, /evaluation\.lowInformation\s*\|\|\s*!evaluation\.leader/);
+  assert.ok(professions.every(({ status }) => status === "active"));
+  const serialized = JSON.stringify(professions);
+  assert.doesNotMatch(serialized, /inzeniersistemu|atjaunojamas_energetikas/i);
   assert.doesNotMatch(
-    app,
-    /#1 ieteikums|Iepazīt VTDT|Izpētīt VTDT|Salīdzini uzdevumu veidu/,
+    serialized,
+    /Inženiersistēmu būvtehniķis|Atjaunojamās enerģētikas tehniķis/,
   );
+});
 
-  for (const tag of html.match(/<a\b[^>]*target="_blank"[^>]*>/g) ?? []) {
-    assert.match(tag, /rel="noopener noreferrer"/);
-  }
-  for (const tag of app.match(/<a\b[^>]*target=\\?"_blank\\?"[^>]*>/g) ?? []) {
-    assert.match(tag, /rel=\\?"noopener noreferrer\\?"/);
+test("katrai profesijai ir pilns 22 dimensiju profils un oficiāla saite", () => {
+  for (const profession of professions) {
+    assert.deepEqual(Object.keys(profession.profile), dimensionIds);
+    for (const value of Object.values(profession.profile)) {
+      assert.equal(typeof value, "number");
+      assert.ok(value >= 0 && value <= 1);
+    }
+    assert.match(profession.officialUrl, /^https:\/\/www\.vtdt\.lv\//);
+    assert.match(profession.sourceUrl, /^https:\/\/www\.vtdt\.lv\//);
+    assert.match(profession.lastVerified, /^\d{4}-\d{2}-\d{2}$/);
   }
 });
 
-test("Draw.io ir trīs lapas un katram savienojumam ir eksistējošs source/target", async () => {
-  const diagram = await readFile(
-    new URL("../docs/VTDT-profesiju-izveles-modelis.drawio", import.meta.url),
-    "utf8",
-  );
-  const diagrams = diagram.match(/<diagram\b/g) ?? [];
-  const cells = diagram.match(/<mxCell\b[^>]*>/g) ?? [];
-  const vertexIds = new Set(
-    cells
-      .filter((cell) => /vertex="1"/.test(cell))
-      .map((cell) => cell.match(/\bid="([^"]+)"/)?.[1])
-      .filter(Boolean),
-  );
-  const edges = cells.filter((cell) => /edge="1"/.test(cell));
+test("ir tieši 18 pamata jautājumi un ātrajā režīmā tieši 10 no tiem", () => {
+  assert.equal(questions.length, 18);
+  assert.equal(new Set(questions.map(({ id }) => id)).size, 18);
+  assert.equal(QUICK_QUESTION_IDS.length, 10);
+  assert.equal(new Set(QUICK_QUESTION_IDS).size, 10);
+  assert.ok(QUICK_QUESTION_IDS.every((id) => questions.some((q) => q.id === id)));
+  assert.deepEqual(ASSESSMENT_MODES.quick.baseQuestionIds, QUICK_QUESTION_IDS);
+  assert.equal(ASSESSMENT_MODES.quick.maxClarifiers, 3);
+  assert.equal(ASSESSMENT_MODES.deep.baseQuestionIds.length, 18);
+  assert.equal(ASSESSMENT_MODES.deep.maxClarifiers, 2);
+});
 
-  assert.equal(diagrams.length, 3);
-  assert.ok(edges.length > 20);
-  assert.match(diagram, /name="1\. Aplikācijas plūsma"/);
-  assert.match(diagram, /name="2\. Jautājumi, dimensijas un profesijas"/);
-  assert.match(diagram, /name="3\. Adaptīvie pāri"/);
-  assert.match(diagram, /value="active"/);
-  assert.match(diagram, /value="legacy"/);
-
-  for (const edge of edges) {
-    const source = edge.match(/\bsource="([^"]+)"/)?.[1];
-    const target = edge.match(/\btarget="([^"]+)"/)?.[1];
-    assert.ok(source, edge);
-    assert.ok(target, edge);
-    assert.ok(vertexIds.has(source), `nezināms source ${source}`);
-    assert.ok(vertexIds.has(target), `nezināms target ${target}`);
+test("visiem jautājumiem ir tā pati četru atbilžu skala", () => {
+  assert.deepEqual(
+    ANSWER_SCALE.map(({ label, coefficient }) => [label, coefficient]),
+    [["Jā", 2], ["Drīzāk jā", 1], ["Drīzāk nē", -1], ["Nē", -2]],
+  );
+  assert.doesNotMatch(JSON.stringify(ANSWER_SCALE), /unknown|Nezinu/i);
+  for (const question of [...questions, ...tieBreakers]) {
+    assert.equal(question.options, ANSWER_SCALE);
+    assert.equal(question.options.length, 4);
+    assert.ok(question.options.every(({ coefficient }) => coefficient !== 0));
+    assert.ok(question.options.every((option) => !("professionId" in option)));
+    assert.ok(question.options.every((option) => !("effects" in option)));
   }
+});
+
+test("pamata jautājumi ir īsi, netieši un semantiski atšķirīgi", () => {
+  const forbidden = [
+    "programm",
+    "automeh",
+    "autovirsb",
+    "mēbel",
+    "augkop",
+    "apģērb",
+    "datorsistēm",
+    "elektroteh",
+    "piegrieztn",
+  ];
+  for (const question of questions) {
+    const wordCount = question.prompt.trim().split(/\s+/).length;
+    assert.ok(wordCount >= 8 && wordCount <= 14, question.prompt);
+    assert.ok(question.prompt.length <= 100, question.prompt);
+    assert.ok(forbidden.every((root) => !question.prompt.toLocaleLowerCase("lv").includes(root)));
+    assert.ok(Object.keys(question.vector).length >= 3);
+    assert.ok(Object.keys(question.vector).length <= 6);
+  }
+  assert.equal(new Set(questions.map(({ concept }) => concept)).size, 18);
+  for (let first = 0; first < questions.length; first += 1) {
+    for (let second = first + 1; second < questions.length; second += 1) {
+      assert.ok(
+        jaccard(normalizeWords(questions[first].prompt), normalizeWords(questions[second].prompt)) < 0.6,
+        `${questions[first].id} un ${questions[second].id} ir pārāk līdzīgi`,
+      );
+    }
+  }
+});
+
+test("lietotāja norādītie neskaidrie formulējumi ir aizstāti", () => {
+  const byId = Object.fromEntries(questions.map((question) => [question.id, question]));
+  assert.match(byId.q02_tangible.prompt, /savu stilu un izskatu/i);
+  assert.match(byId.q03_detail.prompt, /vai Tu tāpat cīnies līdz galam/i);
+  assert.match(byId.q04_spatial.prompt, /cita cilvēka lomā/i);
+  assert.match(byId.q05_movement.prompt, /strādājot ārā/i);
+
+  const serialized = questions.map(({ prompt }) => prompt).join(" ");
+  assert.doesNotMatch(serialized, /prātā pagriezt|kustētos nekā ilgi sēdētu/i);
+  assert.doesNotMatch(serialized, /kustība un spēks|ierīces iekšpusē/i);
+  assert.doesNotMatch(serialized, /vide laika gaitā|vairākas daļas darbojas kopā/i);
+  assert.doesNotMatch(serialized, /ar rokām izveidot kaut ko gatavu/i);
+});
+
+test("precizējošie jautājumi ir īsi, skaidri un nemin profesijas", () => {
+  const forbidden = [
+    "programmēšanas tehniķ",
+    "datorsistēmu tehniķ",
+    "būvtehniķ",
+    "automehāniķ",
+    "galdniek",
+    "elektrotehniķ",
+  ];
+  for (const question of tieBreakers) {
+    const wordCount = question.prompt.trim().split(/\s+/).length;
+    assert.ok(wordCount >= 8 && wordCount <= 14, question.prompt);
+    assert.ok(question.prompt.length <= 100, question.prompt);
+    assert.ok(
+      forbidden.every(
+        (term) => !question.prompt.toLocaleLowerCase("lv").includes(term),
+      ),
+      question.prompt,
+    );
+  }
+  assert.equal(new Set(tieBreakers.map(({ prompt }) => prompt)).size, tieBreakers.length);
+  assert.equal(tieBreakers.length, 31);
+});
+
+test("precizējumos ir galveno līdzīgo profesiju darba izvēļu nošķīrēji", () => {
+  const byId = Object.fromEntries(tieBreakers.map((question) => [question.id, question]));
+  const expectedContrasts = {
+    c17_programs_devices: ["programming", "hardwareNetworks"],
+    c18_mechanics_bodywork: ["mechanicsDiagnostics", "metalBodywork"],
+    c19_plants_machinery: ["plantProcesses", "agriculturalMachinery"],
+    c23_circuits_mechanics: ["electricityEnergy", "mechanicsDiagnostics"],
+    c28_drawings_algorithms: ["spatialDrawing", "programming"],
+    c29_circuits_computers: ["electricityEnergy", "hardwareNetworks"],
+    c30_wood_metal: ["woodworking", "metalBodywork"],
+  };
+  for (const [questionId, [positiveId, negativeId]] of Object.entries(expectedContrasts)) {
+    assert.ok(byId[questionId], questionId);
+    assert.ok(byId[questionId].vector[positiveId] > 0, questionId);
+    assert.ok(byId[questionId].vector[negativeId] < 0, questionId);
+  }
+});
+
+test("visi efekti atsaucas uz dimensijām un katra dimensija mērīta vairākkārt", () => {
+  const counts = Object.fromEntries(dimensionIds.map((id) => [id, 0]));
+  for (const question of [...questions, ...tieBreakers]) {
+    for (const [dimensionId, weight] of Object.entries(question.vector)) {
+      assert.ok(dimensions[dimensionId], `${question.id}: ${dimensionId}`);
+      assert.ok(Number.isFinite(weight));
+      assert.ok(Math.abs(weight) <= 1);
+      if (question.type === "base" && weight !== 0) counts[dimensionId] += 1;
+    }
+  }
+  for (const [dimensionId, count] of Object.entries(counts)) {
+    assert.ok(count > 1, `${dimensionId} mērīta tikai ${count} jautājumos`);
+  }
+});
+
+test("ātrā režīma jautājumi pārklāj visas 22 dimensijas un trīs grupas", () => {
+  const quick = questions.filter(({ id }) => QUICK_QUESTION_IDS.includes(id));
+  const measured = new Set(quick.flatMap(({ vector }) => Object.keys(vector)));
+  assert.deepEqual([...measured].sort(), [...dimensionIds].sort());
+  const groups = new Set(
+    [...measured].map((dimensionId) => dimensions[dimensionId].group),
+  );
+  assert.deepEqual([...groups].sort(), ["environment", "riasec", "tasks"]);
+});
+
+test("jautājumu datos nav tiešu profesiju rezultātu", () => {
+  const inspect = JSON.stringify({ questions, tieBreakers });
+  for (const profession of professions) {
+    assert.ok(!inspect.includes(profession.id));
+    assert.ok(!inspect.includes(profession.title));
+  }
+  assert.doesNotMatch(inspect, /targetProfession|professionResult|defaultProfession/i);
 });

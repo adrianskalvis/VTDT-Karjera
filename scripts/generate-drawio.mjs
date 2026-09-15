@@ -1,16 +1,23 @@
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
-import { dimensionsByGroup } from "../data/dimensions.js";
+import {
+  DIMENSION_GROUPS,
+  dimensions,
+  dimensionsByGroup,
+} from "../data/dimensions.js";
 import { professions } from "../data/professions.js";
 import {
-  TIE_BREAKER_THRESHOLD,
+  ANSWER_SCALE,
+  ASSESSMENT_MODES,
   questions,
   tieBreakers,
 } from "../data/questions.js";
 
-const outputUrl = new URL("../docs/VTDT-profesiju-izveles-modelis.drawio", import.meta.url);
-const tieBreakerThresholdLabel = String(TIE_BREAKER_THRESHOLD).replace(".", ",");
+const outputUrl = new URL(
+  "../docs/VTDT-profesiju-izveles-modelis.drawio",
+  import.meta.url,
+);
 
 const xml = (value) =>
   String(value)
@@ -19,7 +26,40 @@ const xml = (value) =>
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;");
 
-const node = ({ id, label, x, y, width = 170, height = 58, style }) => `
+const styles = Object.freeze({
+  start:
+    "rounded=1;whiteSpace=wrap;html=1;fillColor=#292561;fontColor=#ffffff;strokeColor=#1f1b50;fontStyle=1;shadow=1;",
+  quick:
+    "rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;",
+  deep:
+    "rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;",
+  process:
+    "rounded=1;whiteSpace=wrap;html=1;fillColor=#f7f4ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;",
+  decision:
+    "rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#5e4510;strokeColor=#d6b656;fontStyle=1;",
+  result:
+    "rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;fontStyle=1;shadow=1;",
+  riasec:
+    "rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;fontColor=#3f2850;strokeColor=#9673a6;fontStyle=1;",
+  tasks:
+    "rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;",
+  environment:
+    "rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;fontStyle=1;",
+  active:
+    "rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;",
+  note:
+    "rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontColor=#555555;strokeColor=#b9b3d5;dashed=1;",
+});
+
+const vertex = ({
+  id,
+  label,
+  x,
+  y,
+  width = 180,
+  height = 58,
+  style = styles.process,
+}) => `
   <mxCell id="${xml(id)}" value="${xml(label)}" style="${xml(style)}" vertex="1" parent="1">
     <mxGeometry x="${x}" y="${y}" width="${width}" height="${height}" as="geometry"/>
   </mxCell>`;
@@ -29,299 +69,118 @@ const edge = ({ id, source, target, label = "", style = "" }) => `
     <mxGeometry relative="1" as="geometry"/>
   </mxCell>`;
 
-const page = (id, name, cells, { width = 1169, height = 827 } = {}) => `
+const page = (id, name, cells, width, height) => `
   <diagram id="${xml(id)}" name="${xml(name)}">
     <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="${width}" pageHeight="${height}" math="0" shadow="0">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
-        ${cells.join("\n")}
+        ${cells.join("\n").trim()}
       </root>
     </mxGraphModel>
   </diagram>`;
 
-const styles = {
-  start:
-    "rounded=1;whiteSpace=wrap;html=1;fillColor=#292561;fontColor=#ffffff;strokeColor=#1f1b50;fontStyle=1;shadow=1;",
-  process:
-    "rounded=1;whiteSpace=wrap;html=1;fillColor=#eee9ff;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;",
-  decision:
-    "rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#5e4510;strokeColor=#d6b656;fontStyle=1;",
-  result:
-    "rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;fontStyle=1;shadow=1;",
-  group:
-    "rounded=1;whiteSpace=wrap;html=1;fillColor=#e7e2fb;fontColor=#292561;strokeColor=#8f7cf3;fontStyle=1;",
-  sector:
-    "rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;fontColor=#203f66;strokeColor=#6c8ebf;fontStyle=1;",
-  active:
-    "rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;fontColor=#1f5b49;strokeColor=#82b366;",
-  legacy:
-    "rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;fontColor=#6c5216;strokeColor=#d6b656;dashed=1;",
-  unverified:
-    "rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#666666;strokeColor=#999999;dashed=1;",
-  note:
-    "rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;fontColor=#555555;strokeColor=#b9b3d5;dashed=1;",
-};
-
 const flowCells = [
-  node({ id: "flow_start", label: "Sākums", x: 35, y: 160, style: styles.start }),
-  node({
-    id: "flow_questions",
-    label: `${questions.length} pamata jautājumi`,
-    x: 245,
-    y: 160,
-    style: styles.process,
-  }),
-  node({
-    id: "flow_profile",
-    label: "Normalizēts dimensiju profils",
-    x: 455,
-    y: 160,
-    width: 190,
-    style: styles.process,
-  }),
-  node({
-    id: "flow_compare",
-    label: "Profesiju profilu salīdzināšana",
-    x: 685,
-    y: 160,
-    width: 200,
-    style: styles.process,
-  }),
-  node({
-    id: "flow_close",
-    label: `Top 2 starpība < ${tieBreakerThresholdLabel} punkta un ≥ 9 saturīgas atbildes?`,
-    x: 920,
-    y: 145,
-    width: 190,
-    height: 90,
-    style: styles.decision,
-  }),
-  node({
-    id: "flow_tie",
-    label: "1–2 precizējoši jautājumi (svars 0,5)",
-    x: 710,
-    y: 320,
-    width: 200,
-    style: styles.process,
-  }),
-  node({
-    id: "flow_result",
-    label: "Top 3 + skaidrojums + sakritības indekss",
-    x: 940,
-    y: 320,
-    width: 190,
-    style: styles.result,
-  }),
-  node({
-    id: "flow_note",
-    label: "Viena atbilde nepiešķir profesiju. Neitrālam profilam nav noklusējuma līdera.",
-    x: 385,
-    y: 485,
-    width: 400,
-    height: 72,
-    style: styles.note,
-  }),
-  edge({ id: "flow_e1", source: "flow_start", target: "flow_questions" }),
-  edge({ id: "flow_e2", source: "flow_questions", target: "flow_profile" }),
-  edge({ id: "flow_e3", source: "flow_profile", target: "flow_compare" }),
-  edge({ id: "flow_e4", source: "flow_compare", target: "flow_close" }),
-  edge({
-    id: "flow_e5",
-    source: "flow_close",
-    target: "flow_tie",
-    label: "Jā",
-    style: "strokeColor=#a05b11;",
-  }),
-  edge({
-    id: "flow_e6",
-    source: "flow_close",
-    target: "flow_result",
-    label: "Nē",
-    style: "strokeColor=#27816b;",
-  }),
-  edge({ id: "flow_e7", source: "flow_tie", target: "flow_result" }),
+  vertex({ id: "f_start", label: "Sākums", x: 40, y: 180, style: styles.start }),
+  vertex({ id: "f_mode", label: "Režīma izvēle", x: 260, y: 180, style: styles.decision }),
+  vertex({ id: "f_quick", label: `Ātrais · ${ASSESSMENT_MODES.quick.baseQuestionIds.length} jautājumi`, x: 490, y: 80, style: styles.quick }),
+  vertex({ id: "f_deep", label: `Padziļinātais · ${ASSESSMENT_MODES.deep.baseQuestionIds.length} jautājumi`, x: 490, y: 280, style: styles.deep }),
+  vertex({ id: "f_profile", label: "22 dimensiju profils", x: 730, y: 180, style: styles.process }),
+  vertex({ id: "f_compare", label: `${professions.length} profesiju salīdzinājums`, x: 960, y: 180, width: 195, style: styles.process }),
+  vertex({ id: "f_need", label: "Rezultāti tuvi vai trūkst pārklājuma?", x: 1200, y: 155, width: 210, height: 105, style: styles.decision }),
+  vertex({ id: "f_select", label: `Labākais neatbildētais precizējums no ${tieBreakers.length}`, x: 1180, y: 360, width: 230, style: styles.process }),
+  vertex({ id: "f_limit", label: "Sasniegts režīma limits?", x: 900, y: 360, width: 200, style: styles.decision }),
+  vertex({ id: "f_result", label: "Top 3 vai kopīga 1. vieta", x: 1190, y: 525, width: 220, style: styles.result }),
+  vertex({ id: "f_note", label: "Ātrais: līdz 3 precizējumiem · Padziļinātais: līdz 2 · viena atbilde profesiju nepiešķir", x: 455, y: 525, width: 560, height: 70, style: styles.note }),
+  edge({ id: "fe1", source: "f_start", target: "f_mode" }),
+  edge({ id: "fe2", source: "f_mode", target: "f_quick", label: "Ātrais" }),
+  edge({ id: "fe3", source: "f_mode", target: "f_deep", label: "Padziļinātais" }),
+  edge({ id: "fe4", source: "f_quick", target: "f_profile" }),
+  edge({ id: "fe5", source: "f_deep", target: "f_profile" }),
+  edge({ id: "fe6", source: "f_profile", target: "f_compare" }),
+  edge({ id: "fe7", source: "f_compare", target: "f_need" }),
+  edge({ id: "fe8", source: "f_need", target: "f_result", label: "Nē" }),
+  edge({ id: "fe9", source: "f_need", target: "f_select", label: "Jā" }),
+  edge({ id: "fe10", source: "f_select", target: "f_limit" }),
+  edge({ id: "fe11", source: "f_limit", target: "f_profile", label: "Vēl drīkst" }),
+  edge({ id: "fe12", source: "f_limit", target: "f_result", label: "Limits" }),
 ];
 
-const sectorNames = [...new Set(professions.map(({ sector }) => sector))].sort((a, b) =>
-  a.localeCompare(b, "lv"),
-);
-const sectorId = (sector) =>
-  `sector_${sector.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]+/g, "_").toLowerCase()}`;
-
-const modelCells = [
-  node({
-    id: "model_q_interest",
-    label: "Jautājumi par interešu veidu",
-    x: 25,
-    y: 80,
-    width: 185,
-    style: styles.start,
-  }),
-  node({
-    id: "model_q_tasks",
-    label: "Jautājumi par uzdevumiem",
-    x: 25,
-    y: 175,
-    width: 185,
-    style: styles.start,
-  }),
-  node({
-    id: "model_q_environment",
-    label: "Jautājumi par vidi un darba stilu",
-    x: 25,
-    y: 270,
-    width: 185,
-    style: styles.start,
-  }),
-  node({
-    id: "model_d_riasec",
-    label: `RIASEC dimensijas (${dimensionsByGroup.riasec.length}) · 25%`,
-    x: 270,
-    y: 80,
-    width: 205,
-    style: styles.group,
-  }),
-  node({
-    id: "model_d_tasks",
-    label: `VTDT uzdevumu dimensijas (${dimensionsByGroup.tasks.length}) · 55%`,
-    x: 270,
-    y: 175,
-    width: 205,
-    style: styles.group,
-  }),
-  node({
-    id: "model_d_environment",
-    label: `VTDT vides/stila dimensijas (${dimensionsByGroup.environment.length}) · 20%`,
-    x: 270,
-    y: 270,
-    width: 205,
-    style: styles.group,
-  }),
-  edge({ id: "model_qe1", source: "model_q_interest", target: "model_d_riasec" }),
-  edge({ id: "model_qe2", source: "model_q_tasks", target: "model_d_tasks" }),
-  edge({
-    id: "model_qe3",
-    source: "model_q_environment",
-    target: "model_d_environment",
-  }),
-  node({ id: "legend_active", label: "active", x: 25, y: 430, width: 110, height: 38, style: styles.active }),
-  node({ id: "legend_legacy", label: "legacy", x: 150, y: 430, width: 110, height: 38, style: styles.legacy }),
-  node({ id: "legend_unverified", label: "unverified", x: 275, y: 430, width: 110, height: 38, style: styles.unverified }),
+const scaleLabel = ANSWER_SCALE.map(
+  ({ label, coefficient }) => `${label} ${coefficient > 0 ? "+" : ""}${coefficient}`,
+).join(" · ");
+const scoringCells = [
+  vertex({ id: "s_answer", label: `Atbilde\n${scaleLabel}`, x: 35, y: 185, width: 260, height: 80, style: styles.start }),
+  vertex({ id: "s_vector", label: "Koeficients × jautājuma dimensiju vektors", x: 350, y: 185, width: 235, height: 80, style: styles.process }),
+  vertex({ id: "s_profile", label: "Virziens + pierādījuma uzticamība katrā dimensijā", x: 650, y: 185, width: 245, height: 80, style: styles.process }),
+  vertex({ id: "s_riasec", label: `RIASEC · ${dimensionsByGroup.riasec.length} dimensijas · 25%`, x: 965, y: 55, width: 235, style: styles.riasec }),
+  vertex({ id: "s_tasks", label: `Uzdevumi/intereses · ${dimensionsByGroup.tasks.length} dimensijas · 55%`, x: 965, y: 185, width: 235, style: styles.tasks }),
+  vertex({ id: "s_environment", label: `Vide/stils · ${dimensionsByGroup.environment.length} dimensijas · 20%`, x: 965, y: 315, width: 235, style: styles.environment }),
+  vertex({ id: "s_formula", label: "100 × (0,25 × RIASEC + 0,55 × uzdevumi + 0,20 × vide)", x: 1270, y: 165, width: 270, height: 100, style: styles.process }),
+  vertex({ id: "s_catalog", label: `${professions.length} aktuālo profesiju profili`, x: 650, y: 385, width: 245, style: styles.active }),
+  vertex({ id: "s_rank", label: "Neapaļotu rādītāju salīdzinājums", x: 1270, y: 330, width: 270, style: styles.process }),
+  vertex({ id: "s_top", label: "Atbilstības rādītājs + Top 3", x: 1270, y: 460, width: 270, style: styles.result }),
+  vertex({ id: "s_note", label: "Pretrunīgi signāli samazina uzticamību. Viena atbilde profesiju nepiešķir. Rezultāts nav varbūtība.", x: 350, y: 500, width: 545, height: 70, style: styles.note }),
+  edge({ id: "se1", source: "s_answer", target: "s_vector" }),
+  edge({ id: "se2", source: "s_vector", target: "s_profile" }),
+  edge({ id: "se3", source: "s_profile", target: "s_riasec" }),
+  edge({ id: "se4", source: "s_profile", target: "s_tasks" }),
+  edge({ id: "se5", source: "s_profile", target: "s_environment" }),
+  edge({ id: "se6", source: "s_riasec", target: "s_formula" }),
+  edge({ id: "se7", source: "s_tasks", target: "s_formula" }),
+  edge({ id: "se8", source: "s_environment", target: "s_formula" }),
+  edge({ id: "se9", source: "s_catalog", target: "s_rank" }),
+  edge({ id: "se10", source: "s_formula", target: "s_rank" }),
+  edge({ id: "se11", source: "s_rank", target: "s_top" }),
 ];
 
-sectorNames.forEach((sector, index) => {
-  const y = 35 + index * 95;
-  const id = sectorId(sector);
-  modelCells.push(
-    node({ id, label: sector, x: 545, y, width: 200, style: styles.sector }),
-  );
-  ["model_d_riasec", "model_d_tasks", "model_d_environment"].forEach(
-    (dimensionNodeId, dimensionIndex) => {
-      modelCells.push(
-        edge({
-          id: `model_ds_${index}_${dimensionIndex}`,
-          source: dimensionNodeId,
-          target: id,
-          style: "opacity=45;",
-        }),
-      );
-    },
-  );
-});
+const coverageCells = [
+  vertex({ id: "c_legend_quick", label: "Ātrā testa 10 jautājumi", x: 30, y: 25, width: 190, height: 42, style: styles.quick }),
+  vertex({ id: "c_legend_deep", label: "Papildu 8 padziļinātie", x: 240, y: 25, width: 190, height: 42, style: styles.deep }),
+  vertex({ id: "c_riasec", label: `RIASEC\n${dimensionsByGroup.riasec.map((id) => dimensions[id].shortLabel).join(" · ")}`, x: 790, y: 90, width: 520, height: 90, style: styles.riasec }),
+  vertex({ id: "c_tasks", label: `Uzdevumi un intereses\n${dimensionsByGroup.tasks.map((id) => dimensions[id].shortLabel).join(" · ")}`, x: 790, y: 380, width: 520, height: 150, style: styles.tasks }),
+  vertex({ id: "c_environment", label: `Darba vide un stils\n${dimensionsByGroup.environment.map((id) => dimensions[id].shortLabel).join(" · ")}`, x: 790, y: 730, width: 520, height: 100, style: styles.environment }),
+];
 
-let professionRow = 0;
-for (const sector of sectorNames) {
-  for (const profession of professions.filter((item) => item.sector === sector)) {
-    const id = `profession_${profession.id}`;
-    const y = 20 + professionRow * 67;
-    modelCells.push(
-      node({
-        id,
-        label: `${profession.title} [${profession.status}]`,
-        x: 825,
-        y,
-        width: 285,
-        height: 48,
-        style: styles[profession.status],
-      }),
+questions.forEach((question, index) => {
+  const quick = ASSESSMENT_MODES.quick.baseQuestionIds.includes(question.id);
+  const x = quick ? 30 : 405;
+  const row = quick ? index : index - ASSESSMENT_MODES.quick.baseQuestionIds.length;
+  const y = 90 + row * 94;
+  const id = `c_${question.id}`;
+  coverageCells.push(
+    vertex({
+      id,
+      label: `${question.number}. ${question.prompt}`,
+      x,
+      y,
+      width: 340,
+      height: 70,
+      style: quick ? styles.quick : styles.deep,
+    }),
+  );
+  const groups = new Set(
+    Object.keys(question.vector).map((dimensionId) => dimensions[dimensionId].group),
+  );
+  for (const groupId of groups) {
+    coverageCells.push(
       edge({
-        id: `model_sp_${profession.id}`,
-        source: sectorId(sector),
-        target: id,
+        id: `ce_${question.id}_${groupId}`,
+        source: id,
+        target: `c_${groupId}`,
+        style: "opacity=42;",
       }),
     );
-    professionRow += 1;
   }
-}
-
-const statusStyleFor = (professionId) => {
-  const status = professions.find(({ id }) => id === professionId)?.status ?? "unverified";
-  return styles[status];
-};
-
-const tieCells = [
-  node({ id: "tie_legend_active", label: "active", x: 25, y: 25, width: 110, height: 38, style: styles.active }),
-  node({ id: "tie_legend_legacy", label: "legacy", x: 150, y: 25, width: 110, height: 38, style: styles.legacy }),
-  node({
-    id: "tie_note",
-    label: "9 īpašie pāri + datu kolekcijas vispārīgs fallback citiem Top 2. Atbildes maina tikai dimensijas.",
-    x: 300,
-    y: 20,
-    width: 560,
-    height: 48,
-    style: styles.note,
-  }),
-];
-
-tieBreakers.forEach((collection, index) => {
-  const y = 95 + index * 100;
-  const [leftId, rightId] = collection.pair;
-  const left = professions.find(({ id }) => id === leftId);
-  const right = professions.find(({ id }) => id === rightId);
-  const leftNode = `tie_left_${collection.id}`;
-  const centerNode = `tie_center_${collection.id}`;
-  const rightNode = `tie_right_${collection.id}`;
-  tieCells.push(
-    node({
-      id: leftNode,
-      label: `${left.title} [${left.status}]`,
-      x: 25,
-      y,
-      width: 285,
-      height: 55,
-      style: statusStyleFor(leftId),
-    }),
-    node({
-      id: centerNode,
-      label: `${collection.id}\n${collection.questions.length} jautājumi`,
-      x: 390,
-      y,
-      width: 265,
-      height: 55,
-      style: styles.group,
-    }),
-    node({
-      id: rightNode,
-      label: `${right.title} [${right.status}]`,
-      x: 735,
-      y,
-      width: 300,
-      height: 55,
-      style: statusStyleFor(rightId),
-    }),
-    edge({ id: `tie_e_left_${index}`, source: leftNode, target: centerNode }),
-    edge({ id: `tie_e_right_${index}`, source: centerNode, target: rightNode }),
-  );
 });
 
-const document = `<?xml version="1.0" encoding="UTF-8"?>
-<mxfile host="app.diagrams.net" modified="2026-08-01T00:00:00.000Z" agent="VTDT diagram generator" version="24.7.17" type="device">
-${page("flow", "1. Aplikācijas plūsma", flowCells)}
-${page("model", "2. Jautājumi, dimensijas un profesijas", modelCells, { width: 1169, height: 1169 })}
-${page("tie-breakers", "3. Adaptīvie pāri", tieCells, { width: 1169, height: 1169 })}
+const documentXml = `<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-08-01T00:00:00.000Z" agent="VTDT generator" version="24.7.17" type="device">
+${page("user-flow", "Lietotāja ceļš", flowCells, 1600, 720)}
+${page("scoring-flow", "Punktu aprēķins", scoringCells, 1650, 680)}
+${page("question-coverage", "Jautājumu pārklājums", coverageCells, 1400, 1100)}
 </mxfile>
 `;
 
-await writeFile(outputUrl, document, "utf8");
-console.log(`Izveidots ${fileURLToPath(outputUrl)}`);
+await writeFile(fileURLToPath(outputUrl), documentXml, "utf8");
+console.log(`Atjaunināts: ${fileURLToPath(outputUrl)}`);

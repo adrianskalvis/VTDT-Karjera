@@ -101,3 +101,5 @@ Sākotnējā katalogā Namdaris bija pie “Kokapstrādes”, Arhitektūras tehn
 ## Audita secinājums
 
 Koku nebija lietderīgi paplašināt. Tas tika pilnībā aizstāts ar deklaratīvu divu slāņu dimensiju modeli. Jaunajā versijā visas atbildes vispirms veido lietotāja profilu, nav backtracking, nav noklusējuma profesijas un rezultāts vienmēr tiek pārrēķināts no pašreizējiem atbilžu masīviem.
+
+Pirmā pilnā svērtā daudzizvēļu pārbūve ir saglabāta lokālajā arhīva zarā `archive/weighted-multichoice-v1` un tagā `v1-weighted-multichoice`. Pašreizējā `2026.6` versija šo pašu 22 dimensiju pamatu izmanto diviem testa režīmiem un fiksētai četru atbilžu skalai.

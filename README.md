@@ -1,87 +1,102 @@
-# VTDT virzienu kompass
+# VTDT karjeras tests
 
-Viegls, statisks Vidzemes Tehnoloģiju un dizaina tehnikuma profesiju izvēles palīgs. Lietotājs atbild uz 18 situāciju jautājumiem un, ja divi rezultāti ir ļoti tuvi, ne vairāk kā diviem adaptīviem precizējumiem. Rezultāts ir trīs izpētei piemērotākie virzieni ar personalizētu pamatojumu.
+Statisks Vidzemes Tehnoloģiju un dizaina tehnikuma profesiju izvēles palīgs 9.–10. klašu jauniešiem. Lietotājs izvēlas ātro vai padziļināto režīmu, atbild ar četrām īsām atbildēm un saņem Top 3 virzienus vai godīgi parādītu neizšķirtu.
 
-Lietotne neizmanto framework, bundler, backend, datubāzi vai frontend runtime atkarības. Production versija ir parasts HTML, CSS un ES moduļu JavaScript un darbojas GitHub Pages bez build soļa.
+Production versija ir parasts HTML, CSS un ES moduļu JavaScript. Tai nav framework, bundler, backend, datubāzes vai frontend runtime atkarību, un tā darbojas GitHub Pages bez build soļa.
 
-## Projekta mērķis
+## Režīmi
 
-- palīdzēt jaunietim pēc pamatskolas pamanīt vairākus iespējamos profesionālos virzienus;
-- nepiešķirt profesiju pēc vienas atbildes un neizslēgt nozari ar vienu bināru izvēli;
-- skaidri nošķirt sakritības indeksu no varbūtības vai psiholoģiskas diagnozes;
-- saglabāt visas 15 vēsturiskās profesijas, bet pēc noklusējuma vērtēt aktuālās 13;
-- padarīt modeli, profesiju statusus un jautājumu efektus pārskatāmus un testējamus.
+| Režīms | Pamata jautājumi | Adaptīvi precizējumi | Kopā | Aptuvenais laiks |
+|---|---:|---:|---:|---:|
+| Ātrais (ieteicamais) | 10 | 0–3 | 10–13 | 1–2 minūtes |
+| Padziļinātais | 18 | 0–2 | 18–20 | ap 3 minūtēm |
+
+Abos režīmos katram jautājumam ir viena skala: **Jā**, **Drīzāk jā**, **Drīzāk nē**, **Nē**. Pozitīvās atbildes UI ir zaļas, negatīvās — sarkanas; intensitāte atbilst koeficientam.
+
+## Projekta mērķi
+
+- dot jaunietim ātru un viegli saprotamu sākumpunktu profesiju izpētei;
+- neļaut vienai atbildei noteikt profesiju vai izslēgt veselu nozari;
+- lietot netiešus, starpnozaru jautājumus, no kuriem nevar vienkārši “atminēt” rezultātu;
+- saglabāt auditējamu 22 dimensiju un `25/55/20` vērtēšanas modeli;
+- tukšai vai bojātai atbilžu vēsturei nerādīt noklusējuma profesiju;
+- skaidri saukt rezultātu par **atbilstības rādītāju**, nevis varbūtību vai diagnozi.
 
 ## Failu struktūra
 
 ```text
 .
-├── index.html                         # semantisks, pieejams aplikācijas karkass
-├── styles.css                         # responsīvs dizains un CSS mainīgie
-├── js/
-│   ├── app.js                         # UI, navigācija, localStorage un rezultātu skats
-│   └── scoring.js                     # tīras normalizācijas un rankošanas funkcijas
+├── index.html
+├── styles.css
 ├── data/
-│   ├── content.js                     # kopīgie UI un rezultātu teksti
-│   ├── dimensions.js                  # 22 dimensijas un 25/55/20 grupu svari
-│   ├── professions.js                 # 15 profesiju katalogs, statusi un profili
-│   └── questions.js                   # 18 jautājumi, 9 pāru un vispārīgie tie-breaker
+│   ├── content.js                    # centralizēti UI un rezultātu teksti
+│   ├── dimensions.js                 # 22 dimensijas un grupu svari
+│   ├── professions.js                # tieši 13 aktuālās profesijas un profili
+│   └── questions.js                  # 18 jautājumi, režīmi, skala, 31 precizējums
+├── js/
+│   ├── app.js                        # UI, navigācija, pieejamība, localStorage
+│   ├── scoring.js                    # tīras normalizācijas un adaptācijas funkcijas
+│   └── ui-logic.js                   # testējama tastatūras un rangu UI loģika
 ├── tests/
-│   ├── data-integrity.test.js         # dati, personas un 30 000 profilu simulācija
-│   ├── personas.js                    # 15 loģiskas testa personas
-│   └── scoring.test.js                # formulas un stāvokļa pārrēķina testi
+│   ├── adaptive.test.js
+│   ├── candidate-cohort.js           # 130 sintētisku kandidātu kohorta
+│   ├── candidate-cohort.test.js
+│   ├── data-integrity.test.js
+│   ├── docs-integrity.test.js
+│   ├── personas.js
+│   ├── personas.test.js
+│   ├── scoring.test.js
+│   ├── student-journeys.js           # 10 atšķirīgi jauniešu profili
+│   ├── student-journeys.test.js
+│   ├── simulation.test.js            # 30 000 profili katram režīmam
+│   └── ui-logic.test.js
 ├── docs/
-│   ├── current-tree-audit.md          # sākotnējā binārā koka audits
-│   ├── assessment-model.md            # precīza formula un ierobežojumi
+│   ├── current-tree-audit.md
+│   ├── assessment-model.md
+│   ├── VTDT-karjeras-paligs-direktoram.md
+│   ├── VTDT-karjeras-paligs-direktoram.docx
 │   └── VTDT-profesiju-izveles-modelis.drawio
 ├── scripts/
-│   └── generate-drawio.mjs            # diagrammas ģenerators no aplikācijas datiem
-└── package.json                       # tikai Node iebūvētie testi un darba skripti
+│   ├── export-director-data.mjs
+│   ├── generate-director-docx.py
+│   ├── generate-director-markdown.mjs
+│   ├── audit-candidate-cohort.mjs
+│   └── generate-drawio.mjs
+├── output/pdf/
+│   └── VTDT-karjeras-paligs-direktoram.pdf
+└── package.json
 ```
 
 ## Lokāla palaišana
 
-ES moduļu dēļ atver projektu caur nelielu HTTP serveri, nevis ar dubultklikšķi uz `index.html`.
-
-Ar Python:
+ES moduļu dēļ projektu atver caur statisku HTTP serveri, nevis ar dubultklikšķi uz `index.html`.
 
 ```bash
 python3 -m http.server 8000
 ```
 
-Pēc tam atver [http://localhost:8000](http://localhost:8000).
+Pēc tam atver <http://localhost:8000>. `npm install` nav vajadzīgs.
 
-Var izmantot jebkuru citu statisku failu serveri. Nav jāizpilda `npm install`, jo projektam nav ārēju pakotņu.
-
-## Testi un pārbaudes
+## Testi
 
 Nepieciešams Node.js 20 vai jaunāks.
 
 ```bash
 npm test
-```
-
-Pilna sintakses un testu pārbaude:
-
-```bash
 npm run check
 ```
 
-Testi izmanto tikai Node iebūvēto `node:test` un pārbauda:
+`npm run check` pārbauda JavaScript sintaksi un palaiž visu `node:test` komplektu. Testi aptver datu integritāti, normalizāciju, atbildes maiņu, neizšķirtu, adaptīvo izvēli, 13 profesiju personas, 130 kandidātu kohortu, 10 atšķirīgus jauniešu scenārijus un divas deterministiskas 30 000 profilu simulācijas.
 
-- tieši 18 pamata jautājumus un to atbilžu struktūru;
-- visu efektu dimensiju eksistenci un `[-2; 2]` limitu;
-- katras dimensijas mērīšanu vairāk nekā vienā jautājumā;
-- pilnus profesiju profilus, statusus un VTDT URL;
-- tiešu profesijas rezultātu neesamību atbilžu datos;
-- normalizāciju, pozitīvus un negatīvus signālus, neitrālu profilu un Top 3 secību;
-- vienādus rezultātus bez noklusējuma līdera;
-- tie-breaker slieksni, atbildes maiņu un pilnu pārrēķinu;
-- `legacy` izslēgšanu/iekļaušanu;
-- 15 loģiskas testa personas;
-- deterministisku 30 000 nejaušu atbilžu simulāciju, lai pamanītu nesasniedzamas vai dominējošas profesijas.
+Detalizētu 130 kandidātu rezultātu var atkārtot atsevišķi:
 
-Draw.io failu pēc profesiju vai precizējošo pāru datu maiņas atjauno ar:
+```bash
+npm run audit:candidates
+```
+
+Metodika, rezultāti pirms/pēc un profesiju pāru nošķīrēji aprakstīti [130 kandidātu auditā](docs/candidate-cohort-audit.md).
+
+Draw.io failu no tiem pašiem aplikācijas datiem atjauno ar:
 
 ```bash
 npm run generate:diagram
@@ -89,7 +104,7 @@ npm run generate:diagram
 
 ## Vērtēšanas modelis īsumā
 
-Atbildes maina 22 dimensiju profilu, nevis piešķir profesiju. Dimensijas ir sadalītas trīs grupās:
+Atbildes vispirms izveido lietotāja dimensiju profilu. Tikai pēc tam to salīdzina ar visu 13 profesiju profiliem.
 
 | Grupa | Svars |
 |---|---:|
@@ -97,65 +112,51 @@ Atbildes maina 22 dimensiju profilu, nevis piešķir profesiju. Dimensijas ir sa
 | VTDT uzdevumi un profesionālās intereses | 55% |
 | Darba vide un darba stils | 20% |
 
-Katras dimensijas pozitīvais un negatīvais signāls tiek normalizēts pret teorētiski iespējamo maksimumu visos 18 jautājumos. Negatīva signāla svars ir `0,65`, bet precizējoša jautājuma efekta svars — `0,5`. Vienas atbildes efekts vienā dimensijā nepārsniedz `2`.
+Jautājuma dimensiju vektoru reizina ar koeficientu `+2`, `+1`, `−1` vai `−2`. Normalizācija izmanto konkrētajā režīmā uzdotos un atbildētos jautājumus, bet pierādījuma uzticamība ierobežo vienas atbildes spēku. Pēc visu pamata jautājumu atbildēšanas uzdevumu grupā 30% svara saņem profesijas galvenās darba intereses, lai personības atšķirības nepārspētu skaidru profesionālo interesi. Precizējumu izvēlas determinēti no 31 jautājuma bankas, ņemot vērā Top 5, nozares neskaidrību, profesiju nošķiršanu un pārklājumu.
 
-Nezināmas dimensijas sakritība visām profesijām ir neitrāli `0,5`. Gala rezultāts ir svērts grupu vidējais skalā `0–100`, ko sauc par **sakritības indeksu**. Tas nav varbūtības procents.
+Pilna formula, sliekšņi un ierobežojumi: [docs/assessment-model.md](docs/assessment-model.md).
 
-Ja Top 2 neapaļoto indeksu starpība ir mazāka par `0,25` un ir vismaz 9 saturīgas pamata atbildes, parādās līdz diviem precizējošiem jautājumiem. Slieksnis kalibrēts ar 30 000 nejaušu profilu simulāciju, lai precizējums būtu adaptīvs, nevis gandrīz obligāts. Deviņiem tuviem profesiju pāriem ir īpašas kolekcijas; citam pārim no vispārīgās kolekcijas automātiski izvēlas divus jautājumus ar lielāko dimensiju atšķiršanas spēju. Pēc katras atbildes viss rezultāts tiek pārrēķināts no `answers` un `tieBreakerAnswers`.
+## 13 aktuālās profesijas
 
-Ja visas atbildes ir neitrālas, visas profesijas iegūst vienādu bāzes indeksu `50`, līderis ir `null`, precizējums netiek uzdots un UI rāda vairākus plašus virzienus bez stingras secības.
+Saraksts 2026-08-01 pārbaudīts VTDT [aktuālajā profesiju katalogā](https://www.vtdt.lv/profesijas).
 
-Pilna formula: [docs/assessment-model.md](docs/assessment-model.md).
+| Nozare | Profesijas |
+|---|---|
+| Autotransports | Automehāniķis; Autovirsbūvju remonta tehniķis |
+| Būvniecība | Apdares darbu tehniķis; Arhitektūras tehniķis; Ēku būvtehniķis; Namdaris |
+| Dizains | Apģērbu dizainera asistents |
+| Enerģētika | Elektrotehniķis |
+| Informācijas un komunikācijas tehnoloģijas | Datorsistēmu tehniķis; Programmēšanas tehniķis |
+| Kokapstrāde | Mēbeļu galdnieks |
+| Lauksaimniecība | Augkopības tehniķis; Lauksaimniecības mehanizācijas tehniķis |
 
-## Profesiju statuss
+Inženiersistēmu būvtehniķis un Atjaunojamās enerģētikas tehniķis no jaunās runtime versijas ir izņemti, jo tie nav aktuālajā VTDT katalogā. To vēsturiskais stāvoklis saglabāts lokālajā arhīva versijā `v1-weighted-multichoice`.
 
-Statusi pārbaudīti 2026-08-01 pēc VTDT [profesiju kataloga](https://www.vtdt.lv/profesijas), [2026. gada atvērto durvju dienu saraksta](https://www.vtdt.lv/single-post/profesiju-atv%C4%93rto-durvju-dienas-2026) un [2025. gada vēsturiskā saraksta](https://www.vtdt.lv/single-post/profesiju-atv%C4%93rto-durvju-dienas-2025).
+## Stāvoklis un pieejamība
 
-`active` šajā projektā nozīmē, ka profesija ir gan aktuālajā katalogā, gan 2026. gada 13 profesiju sarakstā. `legacy` nozīmē, ka profesija bija 2025. gada 15 profesiju sarakstā, bet nav aktuālajā katalogā vai 2026. gada sarakstā. Tā ir projekta pieejamības klasifikācija; VTDT šos angļu statusa vārdus savā vietnē nelieto.
+- visas izvēles ir semantiski `<button type="button">` elementi;
+- darbojas Tab/Enter un ciparu taustiņi `1–4`;
+- redzams `:focus-visible`, jautājumu un rezultātu maiņu paziņo `aria-live` reģions;
+- progresa josla dinamiski izmanto 10 vai 18 pamata jautājumu maksimumu;
+- precizējumi tiek parādīti atsevišķi ar režīma limitu;
+- “Atpakaļ” saglabā iepriekšējo izvēli, bet atbildes maiņa anulē no vecā profila atkarīgos precizējumus;
+- rezultātu vienmēr pārrēķina no atbilžu vēstures;
+- `localStorage` glabā `assessmentVersion` un droši ignorē vecu vai bojātu stāvokli;
+- jaunā logā atvērtām saitēm ir `rel="noopener noreferrer"`;
+- fiksētajai VTDT apakšjoslai ir rezervēta vieta, tāpēc tā neaizsedz saturu;
+- izkārtojums paredzēts 320, 375, 768 un desktop platumiem.
 
-| Profesija | Nozare | Statuss |
-|---|---|---|
-| Apģērbu dizainera asistents | Dizains | `active` |
-| Lauksaimniecības mehanizācijas tehniķis | Lauksaimniecība | `active` |
-| Augkopības tehniķis | Lauksaimniecība | `active` |
-| Mēbeļu galdnieks | Kokapstrāde | `active` |
-| Apdares darbu tehniķis | Būvniecība | `active` |
-| Ēku būvtehniķis | Būvniecība | `active` |
-| Namdaris | Būvniecība | `active` |
-| Arhitektūras tehniķis | Būvniecība | `active` |
-| Inženiersistēmu būvtehniķis | Būvniecība | `legacy` |
-| Datorsistēmu tehniķis | Informācijas un komunikācijas tehnoloģijas | `active` |
-| Programmēšanas tehniķis | Informācijas un komunikācijas tehnoloģijas | `active` |
-| Automehāniķis | Autotransports | `active` |
-| Autovirsbūvju remonta tehniķis | Autotransports | `active` |
-| Elektrotehniķis | Enerģētika | `active` |
-| Atjaunojamās enerģētikas tehniķis | Enerģētika | `legacy` |
-
-Aktīvo kopu maina vienā vietā — `professionStatusConfig` failā `data/professions.js`. Pēc noklusējuma scoring iekļauj tikai statusu `active`; testos vai citā skatā var nodot arī `legacy` vai `unverified`.
-
-VTDT lapā Autovirsbūvju remonta tehniķa URL joprojām satur vēsturisko slug `autovirsbuvju-remontatsledznieks`, lai gan aktuālā iegūstamā kvalifikācija katalogā ir “Autovirsbūvju remonta tehniķis”. Inženiersistēmu būvtehniķim stabila atsevišķa aktuālā lapa netika atrasta, bet Atjaunojamās enerģētikas tehniķa agrākā individuālā lapa pašlaik atgriež `404`; abām `legacy` profesijām katalogā tādēļ izmantots dzīvais VTDT 2025. gada oficiālais ieraksts.
+Vizuālā valoda apzināti saglabā sākotnējās VTDT karjeras palīga lapas tumši violeto galveni, gaiši violeto fonu, centrēto balto testa kartīti un VTDT apakšjoslu, lai rīku varētu organiski iekļaut esošajā skolas tīmekļvietnē.
 
 ## GitHub Pages publicēšana
 
-1. GitHub repozitorijā atver **Settings → Pages**.
-2. Sadaļā **Build and deployment** izvēlies **Deploy from a branch**.
-3. Izvēlies vajadzīgo branch (parasti `main`) un mapi `/ (root)`.
-4. Saglabā. GitHub publicēs `index.html` bez build soļa.
+1. Repozitorijā atver **Settings → Pages**.
+2. Pie **Build and deployment** izvēlies **Deploy from a branch**.
+3. Izvēlies publicējamo zaru un mapi `/ (root)`.
+4. Saglabā iestatījumu.
 
-Visas iekšējās saites ir relatīvas, tādēļ lietotne darbojas arī projekta apakšceļā, piemēram, `https://lietotajs.github.io/VTDT-Karjera/`.
-
-## Pieejamība un stāvoklis
-
-- visas vadīklas ir semantiski `button` vai `a` elementi;
-- redzams `:focus-visible`, darbojas Tab/Enter un ciparu taustiņi `1–6`;
-- jautājumu un rezultātu maiņa tiek paziņota ar `aria-live`;
-- progresa joslai ir `role="progressbar"` un atbilstošas vērtības;
-- “Atpakaļ” atgriež tieši iepriekšējo jautājumu un saglabā izvēli;
-- rezultātu skatā “Mainīt atbildes” atgriež uz pēdējo jautājumu;
-- `localStorage` saglabā `assessmentVersion` un ignorē vecu vai bojātu stāvokli;
-- visas jaunā logā atvērtās saites lieto `rel="noopener noreferrer"`;
-- footer nav fiksēts un neaizsedz saturu.
+Visas projekta iekšējās saites ir relatīvas, tāpēc aplikācija darbojas arī repozitorija apakšceļā. Build solis nav vajadzīgs.
 
 ## Ierobežojums
 
-Rezultāts ir karjeras izpētes ieteikums, nevis profesionāla psiholoģiska diagnoze. Profesiju profilu koeficienti ir redakcionāls, testējams modelis, nevis VTDT apstiprināti psihometriski mērījumi. Lēmumu ieteicams papildināt ar sarunu, atvērto durvju dienu un praktisku profesijas iepazīšanu.
+Atbilstības rādītājs ir karjeras orientācijas un izpētes ieteikums, nevis zinātniski validēta psiholoģiska diagnoze. Profesiju profilu koeficienti ir redakcionāls, testējams modelis. Rezultātu ieteicams papildināt ar sarunu, atvērto durvju dienu un praktisku profesijas iepazīšanu.

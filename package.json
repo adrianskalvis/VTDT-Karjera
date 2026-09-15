@@ -1,12 +1,13 @@
 {
   "name": "vtdt-karjeras-paligs",
-  "version": "2026.1.0",
+  "version": "2026.6.0",
   "private": true,
   "type": "module",
   "description": "Statisks VTDT profesiju izvēles palīgs bez frontend runtime atkarībām.",
   "scripts": {
     "test": "node --test",
-    "check": "node --check js/app.js && node --check js/scoring.js && node --test",
+    "audit:candidates": "node scripts/audit-candidate-cohort.mjs",
+    "check": "node --check data/content.js && node --check data/dimensions.js && node --check data/professions.js && node --check data/questions.js && node --check js/app.js && node --check js/scoring.js && node --check js/ui-logic.js && node --check scripts/audit-candidate-cohort.mjs && node --check scripts/export-director-data.mjs && node --check scripts/generate-director-markdown.mjs && node --check scripts/generate-drawio.mjs && node --test",
     "generate:diagram": "node scripts/generate-drawio.mjs"
   },
   "engines": {

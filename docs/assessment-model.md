@@ -1,20 +1,22 @@
 # VTDT profesiju izvēles novērtēšanas modelis
 
-Modeļa versija: `2026.1`. Tas ir karjeras izpētes palīgs, nevis psiholoģisks tests vai profesionālās piemērotības diagnoze.
+Modeļa versija: `2026.5`. Rīks ir karjeras izpētes palīgs, nevis psiholoģisks tests vai profesionālās piemērotības diagnoze.
 
-## Datu plūsma
+## Datu plūsma un režīmi
 
-1. Lietotājs atbild uz 18 pamata jautājumiem.
-2. Katras atbildes efekti veido normalizētu dimensiju profilu.
-3. Profils tiek salīdzināts ar pēc noklusējuma 13 aktīvo VTDT profesiju profiliem.
-4. Ja divi pirmie rezultāti ir tuvāki par 0,25 neapaļotiem indeksa punktiem un ir vismaz 9 saturīgas pamata atbildes, tiek uzdots viens vai divi precizējoši jautājumi.
-5. Lietotājs saņem Top 3, personalizētu pamatojumu, galvenās dimensijas, iespējamo izaicinājumu un mācību uzdevuma piemēru.
+1. Lietotājs izvēlas ātro vai padziļināto režīmu.
+2. Ātrais režīms uzdod 10 apzināti atlasītus pamata jautājumus; padziļinātais — visus 18.
+3. Katra atbilde veido 22 dimensiju profilu, nepiešķirot punktus profesijai tieši.
+4. Profils tiek salīdzināts ar 13 aktuālo VTDT profesiju profiliem.
+5. Ja rezultāti ir tuvi vai pārklājums vājš, algoritms determinēti izvēlas labāko neatbildēto precizējumu.
+6. Ātrajā režīmā var būt ne vairāk kā 3 precizējumi (kopā 10–13 jautājumi), padziļinātajā — ne vairāk kā 2 (kopā 18–20).
+7. Rezultāts ir Top 3, kopīga pirmā vieta vai vairāki plaši virzieni zemas informācijas profilam.
 
-Atbildes nekad nesatur profesijas ID. Profesiju pāru ID atrodas tikai precizējošo jautājumu kolekcijas metadatos, lai izvēlētos piemērotu jautājumu; arī šo jautājumu atbildes maina tikai dimensijas.
+Rezultātu vienmēr pārrēķina no `answers` un `tieBreakerAnswers`. Mutējama globāla punktu summa netiek glabāta.
 
-## Divi satura slāņi un trīs svaru grupas
+## 22 dimensijas un grupu svari
 
-Pirmais slānis ir sešas RIASEC interešu dimensijas:
+RIASEC slānis:
 
 - Praktiskais (`realistic`);
 - Pētnieciskais (`investigative`);
@@ -23,137 +25,154 @@ Pirmais slānis ir sešas RIASEC interešu dimensijas:
 - Uzņēmīgais (`enterprising`);
 - Strukturētais (`conventional`).
 
-Otrais slānis ir 16 VTDT specifiskās dimensijas. Formulā tās sadalītas divās grupās:
+VTDT specifiskais slānis sastāv no 11 uzdevumu/interešu dimensijām un 5 darba vides/stila dimensijām. Precīzs saraksts un apraksti atrodas `data/dimensions.js`.
 
-- 11 uzdevumu un profesionālo interešu dimensijas: programmēšana, datoru aparatūra un tīkli, mehānika un diagnostika, metāls un virsbūves, elektrība un enerģija, telpiskā domāšana un rasēšana, būvniecības process, kokapstrāde, tekstils un dizains, augi un dabas procesi, lauksaimniecības tehnika;
-- 5 darba vides un stila dimensijas: precizitāte un pacietība, fizisks darbs, darbs ārā, komandas darbs, patstāvīga koncentrēšanās.
+| Grupa | Dimensijas | Svars |
+|---|---:|---:|
+| RIASEC intereses | 6 | 25% |
+| Uzdevumi un profesionālās intereses | 11 | 55% |
+| Darba vide un darba stils | 5 | 20% |
 
-Grupu gala svari ir:
+Katras grupas rezultāts ir visu tās dimensiju fiksēts vidējais. Arī neizmērīta dimensija paliek neitrāla, tāpēc viena atbilde nevar pārņemt visu 55% slāni.
 
-| Grupa | Svars |
+## Vienotā atbilžu skala
+
+| Atbilde | Koeficients |
 |---|---:|
-| RIASEC | 25% |
-| Konkrēti uzdevumi un intereses | 55% |
-| Darba vide un darba stils | 20% |
+| Jā | +2 |
+| Drīzāk jā | +1 |
+| Drīzāk nē | −1 |
+| Nē | −2 |
 
-Katras grupas rezultāts ir visu tās dimensiju fiksēts vidējais, arī dimensijām bez signāla. Tādēļ viena atbilde nevar pārņemt visu 55% uzdevumu slāni.
+Katram jautājumam ir dimensiju vektors `w(q,d)`. Izvēlētās atbildes koeficients `c` tiek reizināts ar šo vektoru:
 
-## Atbilžu efekti un ierobežojumi
+```text
+efekts(q,a,d) = c(a) × w(q,d)
+```
 
-Katram atbildes efektam `e(q,a,d)` ir vesela vērtība intervālā `[-2; 2]`:
-
-- pozitīva vērtība pastiprina dimensiju;
-- `0` dimensiju nemaina;
-- negatīva vērtība norāda uz mazāku interesi vai komfortu;
-- “Grūti pateikt” efekti ir tukši un punktus nedod.
-
-12. un 17. jautājums ir pretēji vērtēts. To efekti datos jau ir negatīvi; scoring tos otrreiz neinvertē.
-
-Precizējoša jautājuma efekts tiek reizināts ar `0,5`. Tādēļ ne vairāk kā divi precizējumi papildina, nevis pārraksta, 18 pamata atbilžu profilu.
+Pamata jautājuma reizinātājs ir `m = 1`, precizējošā jautājuma reizinātājs — `m = 0,5`. Atbilžu skalā nav neitrālas izvēles; jaunietis izvēlas tuvāko no divām pozitīvām vai divām negatīvām atbildēm.
 
 ## Normalizācija
 
-Katrai dimensijai `d` vispirms aprēķina teorētisko pozitīvo un negatīvo kapacitāti visos pamata jautājumos:
+Katras dimensijas `d` virzienu aprēķina tikai no faktiski uzdotajiem un saturiski atbildētajiem jautājumiem:
 
 ```text
-P_d = Σ_q max_a(max(e(q,a,d), 0))
-N_d = Σ_q max_a(max(-e(q,a,d), 0))
+S_d = Σ m × c × w(q,d)
+E_d = Σ m × |c × w(q,d)|
+u_d = S_d / E_d, ja E_d > 0; citādi 0
+x_d = (u_d + 1) / 2
+r_d = min(1, E_d / 4) × |u_d|
 ```
 
-No konkrēti izvēlētajām atbildēm:
+- `S_d` ir parakstītais signāls;
+- `E_d` ir faktiskais pierādījuma apjoms;
+- `u_d` ir virziens intervālā `[-1; 1]`;
+- `x_d` ir lietotāja mērķa pozīcija intervālā `[0; 1]`;
+- `r_d` ir uzticamība.
+
+Dalījums ar `4` nozīmē, ka viena atbilde nevar uzreiz dot pilnu uzticamību. Ja vienā dimensijā atbildes precīzi konfliktē, `S_d = 0`, tādēļ `r_d = 0` un salīdzinājums atgriežas neitrālā punktā. Tas neizveido mākslīgu priekšrocību profesijai ar profilu ap `0,5`.
+
+## Dimensijas un profesijas sakritība
+
+Profesijas profila vērtība dimensijā ir `p_d ∈ [0; 1]`:
 
 ```text
-pos_d = Σ_izvēlētās max(e, 0) / P_d
-neg_d = Σ_izvēlētās max(-e, 0) / N_d
+directMatch_d = 1 - |x_d - p_d|
+dimensionMatch_d = 0,5 + r_d × (directMatch_d - 0,5)
 ```
 
-Ja dalītājs ir nulle, attiecīgā vērtība ir nulle. Izmantoto precizējošo jautājumu svērtā kapacitāte tiek pievienota tiem pašiem dalītājiem. `pos_d` un `neg_d` atrodas intervālā `[0; 1]`.
+Ja nav pierādījuma (`r_d = 0`), visu profesiju sakritība šajā dimensijā ir `0,5`.
 
-Negatīvs signāls ir informatīvs, tomēr tam nav atļauts būt tik spēcīgam kā pozitīvai izvēlei:
-
-```text
-λ = 0,65
-weightedNeg_d = λ × neg_d
-evidence_d = min(1, pos_d + weightedNeg_d)
-```
-
-## Dimensijas sakritība ar profesiju
-
-Katras profesijas profilā `p_d` ir redakcionāla vērtība intervālā `[0; 1]`. Pozitīvs lietotāja signāls salīdzinās ar `p_d`, bet negatīvs — ar `1 - p_d`:
+Gala formula nav mainīta:
 
 ```text
-targetMatch_d =
-  (pos_d × p_d + weightedNeg_d × (1 - p_d)) /
-  (pos_d + weightedNeg_d)
-
-dimensionMatch_d = 0,5 + evidence_d × (targetMatch_d - 0,5)
-```
-
-Ja dimensijai nav pierādījuma (`pos_d + weightedNeg_d = 0`), `dimensionMatch_d = 0,5` visām profesijām. Nezināms signāls tādēļ nevienu profesiju nepaaugstina un nepazemina.
-
-Grupas sakritība ir tās dimensiju aritmētiskais vidējais. Gala indekss:
-
-```text
-sakritības indekss = 100 × (
+atbilstības rādītājs = 100 × (
   0,25 × RIASEC vidējais +
-  0,55 × uzdevumu vidējais +
+  0,55 × uzdevumu/interešu vidējais +
   0,20 × vides/stila vidējais
 )
 ```
 
-Rankošanai izmanto neapaļoto skaitli. UI to noapaļo līdz vienai zīmei aiz komata. Indekss nav varbūtība un neapgalvo zinātnisku precizitāti.
+Rankošanai izmanto neapaļotu vērtību. UI rāda vienu zīmi aiz komata. Tas nav varbūtības procents vai zinātniski noteikta precizitāte.
 
-## Atbilžu skaidrība
+### Vienkāršots piemērs
 
-Sakritības indekss un atbilžu skaidrība ir atsevišķi rādītāji. Skaidrība ņem vērā:
-
-- saturīgo pamata atbilžu īpatsvaru;
-- to dimensiju īpatsvaru, kurās ir signāls;
-- pretrunu, ja vienā dimensijā uzkrājas gan pozitīvs, gan negatīvs signāls.
-
-Praktiskā formula kodā:
+Ja hipotētiski grupu sakritības ir `0,70`, `0,80` un `0,60`, tad:
 
 ```text
-answerCoverage = saturīgās atbildes / 18
-contradiction = Σ min(pos, 0,65 × neg) / Σ max(pos, 0,65 × neg)
-clarityFactor = 0,75 + 0,25 × (1 - contradiction)
-breadthFactor = 0,8 + 0,2 × dimensionCoverage
-skaidrība = 100 × answerCoverage × clarityFactor × breadthFactor
+100 × (0,25 × 0,70 + 0,55 × 0,80 + 0,20 × 0,60)
+= 100 × (0,175 + 0,440 + 0,120)
+= 73,5
 ```
 
-Mazāk par 50 ir zema, 50–75 ir vidēja, bet no 75 — augsta atbilžu skaidrība. Mazāk nekā 9 saturīgas pamata atbildes vienmēr tiek uzskatītas par zemu informāciju un neaktivizē precizējošo jautājumu.
+UI rādītu **73,5 / 100** kā atbilstības rādītāju.
 
-Pilnīgi neitrālam profilam visas profesijas matemātiski saņem indeksu `50`. Šādā gadījumā `leader` ir `null`: UI rāda vairākas nozares un dažādus izpētes sākumpunktus bez stingras secības. Noklusējuma profesijas nav.
+## Kāpēc v1 ievades normalizācija tika mainīta
 
-Ja pilnam, informatīvam profilam divas pirmās profesijas iegūst precīzi vienādu indeksu, `leader` arī ir `null`, bet rezultāta režīms paliek `ranked`: UI rāda Top 3 un skaidri apzīmē kopīgu pirmo vietu. Tātad neizšķirts pats par sevi netiek sajaukts ar informācijas trūkumu.
+Arhīva versija `v1-weighted-multichoice` izmantoja atsevišķus katras atbildes efektus un negatīvā signāla koeficientu `0,65`. Jaunā saskarne lietotājam skaidri sola simetrisku skalu `+2 … −2`; saglabājot `0,65`, “Nē −2” matemātiski būtu vājāks par “Jā +2”. Tādēļ asimetrija izņemta un tās vietā izmantots iepriekš aprakstītais simetriskais virziens un uzticamība. Grupu proporcija `25/55/20` nav mainīta.
+
+Strukturālās simulācijas salīdzinājums (nejaušas atbildes nav īstu skolēnu uzvedības prognoze):
+
+| Modelis | Profili | Zemākais Top 1 | Augstākais Top 1 | Zemākais Top 3 |
+|---|---:|---:|---:|---:|
+| arhīva v1, 18 jautājumi | 30 000 | 0,17% | 14,54% | 3,90% |
+| v5 ātrais, 10–13 jautājumi | 30 000 | 1,30% | 17,35% | 11,19% |
+| v5 padziļinātais, 18–20 jautājumi | 30 000 | 1,74% | 16,68% | 9,46% |
+
+## Atbilžu skaidrība un zema informācija
+
+Atbilžu skaidrība nav profesijas rādītājs:
+
+```text
+answerCoverage = derīgās pamata atbildes / režīma pamata jautājumu skaits
+meanReliability = 22 dimensiju uzticamību vidējais
+skaidrība = 100 × (0,70 × answerCoverage + 0,30 × meanReliability)
+```
+
+Zema informācija ir tad, ja derīgi atbildēta mazāk nekā puse režīma pamata jautājumu vai nosegtas mazāk nekā `35%` dimensiju. Parastajā UI rezultātu rāda tikai pēc visu pamata jautājumu pabeigšanas, tāpēc šī aizsardzība galvenokārt pasargā no bojāta vai nepilnīga saglabātā stāvokļa.
+
+Tukšam profilam visas 13 profesijas saņem tieši `50`, bet `leader = null`.
 
 ## Adaptīvie precizējumi
 
-Precizējums ir atļauts, ja:
+Precizējuma iemesli tiek vērtēti atsevišķi:
 
-- pamatdaļa ir pabeigta;
-- ir vismaz 9 saturīgas pamata atbildes;
-- pirmo divu neapaļoto indeksu starpība ir mazāka par `0,25`;
-- var izvēlēties konkrētā pāra kolekciju vai vislabāk diskriminējošos vispārīgos precizējumus.
+| Iemesls | Ātrais | Padziļinātais |
+|---|---:|---:|
+| Top 1–Top 2 starpība | `< 0,40` | `< 0,45` |
+| Top 1–Top 3 diapazons | `< 0,80` | `< 0,85` |
+| Grupas pārklājums | mazāk par 2 saturiskiem novērojumiem | mazāk par 2 saturiskiem novērojumiem |
 
-Pēc pirmā precizējuma viss rezultāts tiek pārrēķināts. Ja starpība vairs nav maza, rezultāts tiek rādīts uzreiz; pretējā gadījumā uzdod otro un pēdējo jautājumu. Datu kolekcijā ir divi jautājumi katram no deviņiem prasītajiem pāriem un seši vispārīgi jautājumi. Neatbalstītam pārim algoritms no vispārīgās kolekcijas izvēlas divus jautājumus, kuru abu atbilžu dimensijas visvairāk atšķir konkrētos profesiju profilus.
+No 16 netiešiem precizējumiem izvēlas neatbildēto kandidātu ar augstāko lietderību. Kandidāts tiek vērtēts pēc:
 
-Slieksnis ir kalibrēts ar deterministisku 30 000 nejaušu profilu simulāciju. Tests pieprasa, lai precizējumam kvalificētos 10–50% profilu: tas pasargā no regresijas, kur precizējums kļūst gandrīz obligāts, vienlaikus nesimulējot īstu jauniešu izvēļu sadalījumu.
+- pašreizējā Top 2 un Top 3 profesiju profilu atšķiršanas spējas;
+- vajadzības mērīt vēl nepietiekami nosegtās dimensijas;
+- semantiskas/vektoru novitātes pret jau uzdotajiem jautājumiem.
 
-## Personalizēts pamatojums
+Ja iemesls ir tikai vājš pārklājums, lielāku svaru saņem pārklājuma vajadzība. Vienādas lietderības gadījumā izvēle notiek pēc stabila jautājuma ID, tādēļ identiska vēsture vienmēr dod identisku precizējumu.
 
-Galvenās dimensijas izvēlas pēc lietotāja pierādījuma un konkrētās profesijas sakritības. Konkrēto atbilžu pamatojums izmanto “leave-one-out” aprēķinu: profesijas indekss tiek pārrēķināts, pa vienai noņemot izvēlēto atbildi. Atbildes ar lielāko pozitīvo starpību ir godīgs pamats sadaļai “Kāpēc šāds rezultāts?”.
+Kandidātu izslēdz, ja tā vidējā nenosegto dimensiju vajadzība ir mazāka par `0,08`. Tādēļ pat liela teorētiska Top 3 nošķiršana nevar izraisīt jautājumu, kura dimensijas jau ir pietiekami izmērītas.
 
-## Pieejamība un stāvoklis
+Ja pēc precizējumu limita Top 1 starpība ir ne vairāk kā `0,35`, rezultāts saglabā kopīgu pirmo vietu. Alfabētiska attēlošanas secība netiek pasniegta kā mākslīgs uzvarētājs.
 
-Scoring neuztur mutējamu punktu summu. Katrs rezultāts tiek no jauna aprēķināts no `answers` un `tieBreakerAnswers`, tādēļ pogas “Atpakaļ” un atbildes maiņa nevar atstāt vecus punktus.
+## Validācija
 
-`localStorage` stāvoklī ir `assessmentVersion`. Neatbilstoša versija, bojāts JSON, nezināms jautājums vai atbildes variants tiek droši ignorēts.
+Automātiskie testi pārbauda:
+
+- tieši 13 profesijas, 18 pamata jautājumus un 10 jautājumu ātro apakškopu;
+- fiksēto četru atbilžu skalu bez neitrālas izvēles;
+- visu 22 dimensiju pārklājumu un to mērīšanu vairāk nekā vienā pamata jautājumā;
+- pozitīvu/negatīvu simetriju, pretrunu slāpēšanu, neizšķirtu un pilnu pārrēķinu;
+- vienas atbildes maksimāli ierobežotu ietekmi;
+- 13 loģiskas personas: padziļināti visas Top 1, ātri visas Top 3;
+- 10 atšķirīgus jauniešu scenārijus, tostarp vizuāli radošu profilu, kuram apģērbu dizains abos režīmos ir Top 3;
+- 30 000 profilus katram režīmam, sasniedzamību un dominances robežas;
+- adaptīvo izvēli, determinismu un jautājumu skaita limitus.
 
 ## Ierobežojumi
 
-- Profesiju profilu koeficienti ir redakcionāls, pārbaudāms projekta modelis; VTDT avoti apstiprina nosaukumus, nozares, statusu un apraksta saturu, nevis šos koeficientus.
-- Jautājumi un koeficienti nav psihometriski validēti reprezentatīvā jauniešu izlasē.
-- Nejaušu atbilžu simulācija pārbauda strukturālu sasniedzamību un dominanci, nevis prognozē īstu lietotāju izvēļu sadalījumu.
-- Intereses var mainīties, un profesijas ikdienu nevar pilnībā aprakstīt ar 18 jautājumiem.
-- Rezultāts jāizmanto kā sākums sarunai, atvērto durvju dienai vai praktiskai iepazīšanai, nevis kā galīgs lēmums.
+- Profesiju profilu svari ir redakcionāls un auditējams projekta modelis; VTDT avots apstiprina profesiju nosaukumus un nozares, nevis koeficientus.
+- Jautājumi nav psihometriski validēti reprezentatīvā jauniešu izlasē.
+- Nejauša simulācija atrod strukturālas kļūdas, bet neatdarina reālu skolēnu atbilžu sadalījumu.
+- Rezultāts jāizmanto sarunas, atvērto durvju dienas vai praktiskas iepazīšanās sākšanai, nevis galīgam lēmumam.
+- Nākamais nepieciešamais solis ir pilotpētījums ar 9.–10. klašu skolēniem un karjeras konsultanta novērojumiem.
